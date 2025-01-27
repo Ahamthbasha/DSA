@@ -707,6 +707,751 @@
 
 //recall linked list
 
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class Linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.size=0
+//     }
+//     isEmpty(){
+//         return this.size===0
+//     }
+//     getSize(){
+//         return this.size
+//     }
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             let prev=this.head
+//             while(prev.next){
+//                 prev=prev.next
+//             }
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     insert(value,index){
+//         const node=new Node(value)
+//         if(index < 0 || index > this.size){
+//             return
+//         }
+//         if(index===0){
+//             this.prepend(value)
+//         }
+//         else{
+//             let prev=this.head
+//             for(let i=0;i<index-1;i++){
+//                 prev=prev.next
+//             }
+//             node.next=prev.next
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     remove(index){
+//         if(index < 0||index >= this.size){
+//             return null
+//         }
+//         let removeIndex
+//         if(index==0){
+//             removeIndex=this.head
+//             this.head=this.head.next
+//         }
+//         else{
+//             let prev=this.head
+//             for(let i=0;i< index-1;i++){
+//                 prev=prev.next
+//             }
+//             removeIndex=prev.next
+//             prev.next=removeIndex.next
+//         }
+//         this.size--
+//         return removeIndex
+//     }
+//     print(){
+//         let curr=this.head
+//         let listValues=""
+//         while(curr){
+//             listValues+=curr.value+" "
+//             curr=curr.next
+//         }
+//         console.log(listValues)
+//     }
+// }
+// const list = new Linkedlist()
+// list.prepend(10)
+// list.append(20)
+// list.append(30)
+// list.append(40)
+// list.insert(50,3)
+// list.print()
+// list.remove(3)
+// list.print()
+
+//8.linked list remove list by values
+
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class Linkedlist{
+//     contstructor(){
+//         this.head=null
+//         this.size=0
+//     }
+//     isEmpty(){
+//         return this.size===0
+//     }
+//     getSize(){
+//         return this.size
+//     }
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             let prev=this.head
+//             while(prev.next){
+//                 prev=prev.next
+//             }
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     insert(value,index){
+//         const node=new Node(value)
+//         if(index < 0 || index > this.size){
+//             return "invalid"
+//         }
+//         if(index === 0){
+//             this.prepend(value)
+//         }else{
+//             let prev=this.head
+//             for(let i=0;i<index-1;i++){
+//                 prev=prev.next
+//             }
+//             node.next=prev.next
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     remove(index){
+//         if(index < 0 || index >= this.size){
+//             return "invalid"
+//         }
+//         let removeIndex
+//         if(index === 0){
+//             removeIndex=this.head
+//             this.head=this.head.next
+//         }
+//         else{
+//             let prev=this.head
+//             for(let i=0;i<index-1;i++){
+//                 prev=prev.next
+//             }
+//             removeIndex=prev.next
+//             prev.next=removeIndex.next
+
+//         }
+//         this.size++
+//     }
+//     removeValue(value){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }
+//         if(this.head.value === value){
+//             this.head=this.head.next
+//             this.size--
+//             return value
+//         }
+//         else{
+//             let removeNode
+//             let prev=this.head
+//             while(prev.next && prev.next.value !==value){
+//                 prev=prev.next
+//             }
+//             if(prev.next){
+//                 removeNode=prev.next
+//                 prev.next=removeNode.next
+//                 this.size--
+//                 return value
+//             }
+//             return null
+//         }
+//     }
+//     print(){
+//         let curr=this.head
+//         let listValues=""
+//         while(curr){
+//             listValues+=curr.value+" "
+//             curr=curr.next
+//         }
+//         console.log(listValues)
+//     }
+// }
+// const list=new Linkedlist()
+// list.prepend(10)
+// list.append(20)
+// list.append(30)
+// list.append(40)
+// list.insert(50,3)
+// list.print()
+// list.remove(3)
+// list.print()
+// console.log(list.removeValue(60))
+// list.removeValue(30)
+// list.print()
+
+//9.linked list search elements
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class Linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.size=0
+//     }
+//     isEmpty(){
+//         return this.size===0
+//     }
+//     getSize(){
+//         return this.size
+//     }
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             let prev=this.head
+//             while(prev.next){
+//                 prev=prev.next
+//             }
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     insert(value,index){
+//         const node=new Node(value)
+//         if(index < 0 || index > this.size){
+//             return "invalid"
+//         }
+//         if(index === 0){
+//             this.prepend(value)
+//         }else{
+//             let prev=this.head
+//             for(let i=0;i<index-1;i++){
+//                 prev=prev.next
+//             }
+//             node.next=prev.next
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     remove(index){
+//         if(index < 0 || index >= this.size){
+//             return "invalid"
+//         }
+//         let removeIndex
+//         if(index == 0){
+//             removeIndex=this.head
+//             this.head=this.head.next
+//         }
+//         else{
+//             let prev=this.head
+//             for(let i=0;i < index-1;i++){
+//                 prev=prev.next
+//             }
+//             removeIndex=prev.next
+//             prev.next=removeIndex.next
+//         }
+//         this.size--
+//     }
+//     removeValue(value){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }
+//         if(this.head.value == value){
+//             this.head=this.head.next
+//             this.size--
+//             return value
+//         }
+//         else{
+//             let removeIndex
+//             let prev=this.head
+//             while(prev.next && prev.next.value !== value){
+//                 prev=prev.next
+//             }
+//             if(prev.next){
+//                 removeIndex=prev.next
+//                 prev.next=removeIndex.next
+//                 this.size--
+//             }
+//             return null
+//         }
+//     }
+//     search(value){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }
+//         else{
+//             let i=0
+//             let curr=this.head
+//             while(curr){
+//                 if(curr.value==value){
+//                     return i
+//                 }
+//                 curr=curr.next
+//                 i++
+//             }
+//             return "not found"
+//         }
+//     }
+//     print(){
+//         if(this.isEmpty()){
+//             return "It is empty"
+//         }else{
+//             let curr=this.head
+//             let listValues=""
+//             while(curr){
+//                 listValues+=curr.value+" "
+//                 curr=curr.next
+//             }
+//             console.log(listValues)
+//         }
+//     }
+// }
+// const list=new Linkedlist()
+// list.prepend(10)
+// list.append(20)
+// list.append(30)
+// list.append(40)
+// list.append(50)
+// list.print()
+// list.insert(70,3)
+// list.print()
+// list.remove(3)
+// list.print()
+// list.removeValue(40)
+// list.print()
+// console.log(list.search(20))
+
+//10.linked list reverse
+
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class Linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.size=0
+//     }
+//     isEmpty(){
+//         return this.size===0
+//     }
+//     getSize(){
+//         return this.size
+//     }
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//         }
+//         else{
+//             let prev=this.head
+//             while(prev.next){
+//                 prev=prev.next
+//             }
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     insert(value,index){
+//         const node=new Node(value)
+//         if(index < 0 || index > this.size){
+//             return "invalid index"
+//         }
+//         if(index === 0){
+//             this.prepend(value)
+//         }
+//         else{
+//             let prev=this.head
+//             for(let i=0;i<index-1;i++){
+//                 prev=prev.next
+//             }
+//             node.next=prev.next
+//             prev.next=node
+//         }
+//         this.size++
+//     }
+//     remove(index){
+//         if(index < 0 || index >= this.size){
+//             return "invalid index"
+//         }
+//         if(index === 0){
+//             this.head=this.head.next
+//             this.size--
+//         }
+//         else{
+//             let removeIndex
+//             let prev=this.head
+//             for(let i=0;i<index-1;i++){
+//                 prev=prev.next
+//             }
+//             removeIndex=prev.next
+//             prev.next=removeIndex.next
+//             this.size--
+//         }
+//     }
+//     removeValue(value){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }
+//         if(this.head.value==value){
+//             this.head=this.head.next
+//             this.size--
+//         }else{
+//             let prev=this.head
+//             let removeIndex
+//             while(prev.next && prev.next.value !== value){
+//                 prev=prev.next
+//             }
+//             if(prev.next){
+//             removeIndex=prev.next
+//             prev.next=removeIndex.next
+//             this.size--
+//             }
+//         }
+//     }
+//     reverse(){
+//         let prev=null
+//         let curr=this.head
+//         while(curr){
+//             let next=curr.next
+//             curr.next=prev
+//             prev=curr
+//             curr=next
+//         }
+//         this.head=prev
+//     }
+//     search(value){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }
+//         else{
+//             let i=0
+//             let curr=this.head
+//             while(curr){
+//                 if(curr.value == value){
+//                     return i
+//                 }
+//                 curr=curr.next
+//                 i++
+//             }
+//             return "no value"
+//         }
+//     }
+//     print(){
+//         if(this.isEmpty()){
+//             return "list is Empty"
+//         }else{
+//             let curr=this.head
+//             let listValues=""
+//             while(curr){
+//                  listValues+=curr.value+" "
+//                  curr=curr.next
+//             }
+//             console.log(listValues)
+//         }
+//     }
+// }
+// const list=new Linkedlist()
+// list.prepend(10)
+// list.append(20)
+// list.append(30)
+// list.append(40)
+// list.append(50)
+// list.print()
+// list.insert(70,3)
+// list.print()
+// list.remove(3)
+// list.print()
+// list.removeValue(40)
+// list.print()
+// console.log(list.search(20))
+// list.reverse()
+// list.print()
+
+//11.linked list with tail implementation
+
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class Linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.tail=null
+//         this.size=0
+//     }
+//     isEmpty(){
+//         return this.size===0
+//     }
+//     getSize(){
+//         return this.size
+//     }
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }
+//         else{
+//             this.tail.next=node
+//             this.tail=node
+//         }
+//         this.size++
+//     }
+//     removeFromFront(){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }
+//         else{
+//             this.head=this.head.next
+//             this.size--
+//         }
+//     }
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return "invalid index"
+//         }
+//         if(this.size == 0){
+//             this.head=null
+//             this.tail=null
+//         }else{
+//             let prev=this.head
+//             while(prev.next !== this.tail){
+//                 prev=prev.next
+//             }
+//             prev.next=null
+//             this.tail=prev
+//         }
+//         this.size--
+//     }
+//     print(){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }else{
+//             let curr=this.head
+//             let listValues=""
+//             while(curr){
+//                 listValues+=curr.value+" "
+//                 curr=curr.next
+//             }
+//             console.log(listValues)
+//         }
+//     }
+// }
+// const list=new Linkedlist()
+
+// list.append(1)
+// list.append(2)
+// list.append(3)
+// list.prepend(0)
+// list.print()
+// list.removeFromFront()
+// list.print()
+// list.removeFromEnd()
+// list.print()
+
+//linked list by apna college
+
+// class Node{
+//     constructor(data){
+//         this.data=data
+//         this.next=null
+//     }
+// }
+
+// class Linkedlist{
+//     constructor(){
+//         this.head=null 
+//         this.tail=null
+//         this.size=0
+//     }
+//     isEmpty(){
+//         return this.size===0
+//     }
+//     getSize(){
+//         return this.size
+//     }
+//     //prepend time complexity is O(1) constant.
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+//     //append run time is O(1) constant 
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             this.tail.next=node
+//             this.tail=node
+//         }
+//         this.size++
+//     }
+//     //print runtime will be O(n) linear
+//     print(){
+//         if(this.isEmpty()){
+//             console.log("list is empty")
+//         }
+//         let temp=this.head
+//         let listValues=""
+//         while(temp!=null){
+//             listValues+=temp.data+"->"
+//             temp=temp.next
+//         }
+//         listValues+="null"
+//         console.log(listValues)
+//     }
+//     //insert run time will be O(n) linear
+//     insert(value,index){
+//         const node=new Node(value)
+//         if(index===0){
+//             this.prepend(value)
+//         }
+//         else{
+//         let temp=this.head
+//         let i=0
+//         while(i < index-1){
+//             temp=temp.next
+//             i++
+//         }
+//         node.next=temp.next
+//         temp.next=node
+//         this.size++
+//     }
+//     }
+//        removeFromFirst(){
+//          if(this.isEmpty()){
+//         return "it is invalid"
+//         }
+//        else{
+//         this.head=this.head.next
+//         this.size--
+//         }
+//     }
+// removeFromLast(){
+//     if(this.isEmpty()){
+//         return "it is empty"
+//     }
+//     if(this.size===1){
+//         this.head=null
+//         this.tail=null
+//         this.size--
+//     }else{
+//         let prev=this.head
+//         for(let i=0;i<this.size-2;i++){
+//             prev=prev.next
+//         }
+//         prev.next=null
+//         this.tail=prev
+//         this.size--
+//     }
+// }
+// }
+        
+// const list=new Linkedlist()
+// list.prepend(2)
+// list.prepend(1)
+// list.append(3)
+// list.append(4)
+// list.print()
+// list.insert(5,2)
+// list.print()
+
+
 class Node{
     constructor(value){
         this.value=value
@@ -717,6 +1462,7 @@ class Node{
 class Linkedlist{
     constructor(){
         this.head=null
+        this.tail=null
         this.size=0
     }
     isEmpty(){
@@ -729,6 +1475,7 @@ class Linkedlist{
         const node=new Node(value)
         if(this.isEmpty()){
             this.head=node
+            this.tail=node
         }else{
             node.next=this.head
             this.head=node
@@ -739,69 +1486,86 @@ class Linkedlist{
         const node=new Node(value)
         if(this.isEmpty()){
             this.head=node
+            this.tail=node
         }else{
-            let prev=this.head
-            while(prev.next){
-                prev=prev.next
-            }
-            prev.next=node
+            this.tail.next=node
+            this.tail=node
         }
         this.size++
     }
     insert(value,index){
         const node=new Node(value)
-        if(index < 0 || index > this.size){
-            return
-        }
-        if(index===0){
+        if(index === 0){
             this.prepend(value)
-        }
-        else{
-            let prev=this.head
-            for(let i=0;i<index-1;i++){
-                prev=prev.next
+        }else{
+            let temp=this.head
+            let i=0
+            while(i < index-1){
+                temp=temp.next
+                i++
             }
-            node.next=prev.next
-            prev.next=node
+            node.next=temp.next
+            temp.next=node
+            this.size++
         }
-        this.size++
-    }
-    remove(index){
-        if(index < 0||index >= this.size){
-            return null
-        }
-        let removeIndex
-        if(index==0){
-            removeIndex=this.head
-            this.head=this.head.next
-        }
-        else{
-            let prev=this.head
-            for(let i=0;i< index-1;i++){
-                prev=prev.next
-            }
-            removeIndex=prev.next
-            prev.next=removeIndex.next
-        }
-        this.size--
-        return removeIndex
     }
     print(){
-        let curr=this.head
-        let listValues=""
-        while(curr){
-            listValues+=curr.value+" "
-            curr=curr.next
+        if(this.isEmpty()){
+            return "list is empty"
         }
-        console.log(listValues)
+        else{
+            let temp=this.head
+            let listValues=""
+            while(temp != null){
+                listValues+=temp.value+"->"
+                temp=temp.next
+            }
+            listValues+=null
+            console.log(listValues)
+        }
+    }
+    removeFromFirst(){
+        if(this.isEmpty()){
+            return "it is invalid"
+        }
+        else if(this.size===1){
+            this.head=null
+            this.size=null
+            this.size--
+        }
+        else{
+            this.head=this.head.next
+            this.size--
+        }
+    }
+    removeFromLast(){
+        if(this.isEmpty()){
+            return "it is empty"
+        }
+        if(this.size===1){
+            this.head=null
+            this.tail=null
+            this.size--
+        }else{
+            let prev=this.head
+            for(let i=0;i<this.size-2;i++){
+                prev=prev.next
+            }
+            prev.next=null
+            this.tail=prev
+            this.size--
+        }
     }
 }
-const list = new Linkedlist()
-list.prepend(10)
-list.append(20)
-list.append(30)
-list.append(40)
-list.insert(50,3)
+const list=new Linkedlist()
+list.prepend(2)
+list.prepend(1)
+list.append(3)
+list.append(4)
 list.print()
-list.remove(3)
+list.insert(5,2)
+list.print()
+list.removeFromFirst()
+list.print()
+list.removeFromLast()
 list.print()
