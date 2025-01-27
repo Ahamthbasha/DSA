@@ -1451,7 +1451,6 @@
 // list.insert(5,2)
 // list.print()
 
-
 class Node{
     constructor(value){
         this.value=value
@@ -1495,17 +1494,21 @@ class Linkedlist{
     }
     insert(value,index){
         const node=new Node(value)
-        if(index === 0){
+        if(this.isEmpty()){
+            return "list is empty"
+        }
+        else if(index===0){
             this.prepend(value)
-        }else{
-            let temp=this.head
+        }
+        else{
+            let prev=this.head
             let i=0
             while(i < index-1){
-                temp=temp.next
+                prev=prev.next
                 i++
             }
-            node.next=temp.next
-            temp.next=node
+            node.next=prev.next
+            prev.next=node
             this.size++
         }
     }
@@ -1524,13 +1527,13 @@ class Linkedlist{
             console.log(listValues)
         }
     }
-    removeFromFirst(){
+    removeFromStart(){
         if(this.isEmpty()){
-            return "it is invalid"
+            return "the list is empty"
         }
-        else if(this.size===1){
+        else if(this.size === 1){
             this.head=null
-            this.size=null
+            this.tail=null
             this.size--
         }
         else{
@@ -1538,15 +1541,16 @@ class Linkedlist{
             this.size--
         }
     }
-    removeFromLast(){
+    removeFromEnd(){
         if(this.isEmpty()){
-            return "it is empty"
+            return "list is empty"
         }
-        if(this.size===1){
+        else if(this.size===1){
             this.head=null
             this.tail=null
             this.size--
-        }else{
+        }
+        else{
             let prev=this.head
             for(let i=0;i<this.size-2;i++){
                 prev=prev.next
@@ -1556,16 +1560,34 @@ class Linkedlist{
             this.size--
         }
     }
+    search(value){
+        if(this.isEmpty()){
+            return "list is empty"
+        }
+        else{
+        let temp=this.head
+        let i=0
+        while(temp != null){
+            if(value==temp.value){
+                return i
+            }
+            temp=temp.next
+            i++
+        }
+        return -1
+        }
+    }
 }
 const list=new Linkedlist()
-list.prepend(2)
-list.prepend(1)
-list.append(3)
-list.append(4)
+list.prepend(10)
+list.append(20)
+list.append(40)
 list.print()
-list.insert(5,2)
+list.insert(30,2)
 list.print()
-list.removeFromFirst()
+list.removeFromStart()
 list.print()
-list.removeFromLast()
+list.removeFromEnd()
 list.print()
+console.log(list.search(30))
+console.log(list.search(50))
