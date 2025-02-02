@@ -5171,3 +5171,122 @@
 // console.log(q.getSize())
 // console.log(q.peek())
 // q.print()
+
+// class hashtable{
+//     constructor(size){
+//         this.table=new Array(size)
+//         this.size=size
+//     }
+
+//     hash(key){
+//         let total=0
+//         for(let i=0;i<key.length;i++){
+//             total+=key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index=this.hash(key)
+//         this.table[index]=value
+//     }
+
+//     get(key){
+//         let index=this.hash(key)
+//         return this.table[index]
+//     }
+
+//     remove(key){
+//         let index=this.hash(key)
+//         let value=this.table[index]
+//         this.table[index]=undefined
+//         return value
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// const table=new hashtable(50)
+// table.set("name","basha")
+// table.set("movie","king")
+// table.print()
+// console.log(table.get("movie"))
+// console.log(table.remove("name"))
+// table.print()
+// table.set("mvioe","king khan")
+// table.print()
+
+// class hashtable{
+//     constructor(size){
+//         this.table=new Array(size)
+//         this.size=size
+//     }
+
+//     hash(key){
+//         let total=0
+//         for(let i=0;i<key.length;i++){
+//             total+=key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index=this.hash(key)
+//         let bucket=this.table[index]
+//         if(!bucket){
+//             this.table[index]=[[key,value]]
+//         }else{
+//             let sameKey=bucket.find(item => item[0]==key)
+//             if(sameKey){
+//                 sameKey[1]=value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
+
+//     get(key){
+//         let index=this.hash(key)
+//         let bucket=this.table[index]
+//         if(bucket){
+//             let samekey=bucket.find(item=>item[0]==key)
+//             return samekey[1]
+//         }else{
+//             return "key is invalid or not in table"
+//         }
+//     }
+
+//     remove(key){
+//         let index=this.hash(key)
+//         let bucket=this.table[index]
+//         let samekey=bucket.find(item=>item[0]===key)
+//         if(samekey){
+//           return  bucket.splice(bucket.indexOf(samekey),1)
+//         }else{
+//             return "key is invalid or not in table"
+//         }
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+// const table=new hashtable(50)
+// table.set("name","basha")
+// table.set("movie","king")
+// table.print()
+// console.log(table.get("movie"))
+// console.log(table.remove("name"))
+// table.print()
+// table.set("mvioe","king khan")
+// table.print()
