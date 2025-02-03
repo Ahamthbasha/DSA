@@ -208,3 +208,162 @@
 // console.log(stack1.isEmpty())
 // console.log(stack1.getSize())
 // stack1.print()
+
+//question no 1:push at bottom of the stack
+
+
+// class stack{
+//     constructor(){
+//         this.item=[]
+//     }
+//     push(element){
+//         this.item.push(element)
+//     }
+//     pop(){
+//       return  this.item.pop()
+//     }
+//     isEmpty(){
+//         return this.item.length == 0
+//     }
+//     getSize(){
+//         return this.item.length
+//     }
+//     peek(){
+//         return this.item[this.item.length-1]
+//     }
+//     print(){
+//         console.log(this.item.toString())
+//     }
+    //push at bottom of stack
+    // pushAtBottomOfStack(data){
+    //     if(this.isEmpty()){
+    //         this.push(data)
+    //         return
+    //     }
+
+    //     let top=this.pop()
+    //     this.pushAtBottomOfStack(data)
+    //     this.push(top)
+    // }
+
+    //reverse a string using a stack
+    // reverseString(str){
+    //     let givenStr=str
+    //     let index=0
+    //     while(index < givenStr.length){
+    //         this.item.push(givenStr[index])
+    //         index++
+    //     }
+
+    //     let result=""
+    //     while(!this.isEmpty()){
+    //         result+=this.item.pop()
+    //     }
+    //     return result
+    // }
+
+//     reverseStack(){
+//         if(this.isEmpty()){
+//             return
+//         }
+//         let top=this.pop()
+//         this.reverseStack()
+//         this.pushAtBottomOfStack(top)
+//     }
+// }
+// const stack1=new stack()
+// stack1.push(10)
+// stack1.push(20)
+// stack1.push(30)
+// stack1.push(40)
+// stack1.print()
+// console.log(stack1.pop())
+// console.log(stack1.getSize())
+// console.log(stack1.isEmpty())
+// console.log(stack1.peek())
+// stack1.pushAtBottomOfStack(5)
+// stack1.print()
+// console.log(stack1.reverseString("abc"))
+// stack1.print()
+
+// const stack2=new stack()
+// stack2.push(1)
+// stack2.push(2)
+// stack2.push(3)
+// stack2.push(4)
+// stack2.print()
+// stack2.reverseStack()
+// stack2.print()
+
+
+//stock span problem
+
+class stack{
+    constructor(){
+        this.item=[]
+    }
+    push(element){
+        this.item.push(element)
+    }
+    pop(){
+      return  this.item.pop()
+    }
+    isEmpty(){
+        return this.item.length == 0
+    }
+    getSize(){
+        return this.item.length
+    }
+    peek(){
+        return this.item[this.item.length-1]
+    }
+    print(){
+        console.log(this.item.toString())
+    }
+}
+
+// function stockSpan(stocks){
+//     let span=new Array(stocks.length).fill(1)
+//     let s=new stack()
+//     s.push(0)
+//     for(let i=1;i<stocks.length;i++){
+//         let currentPrice=stocks[i]
+//         while(!s.isEmpty() && currentPrice > stocks[s.peek()]){
+//             s.pop()
+//         }
+//         if(s.isEmpty()){
+//             span[i]=i+1
+//         }else{
+//             let prevHigh=s.peek()
+//             span[i]=i-prevHigh
+//         }
+//         s.push(i)
+//     }
+//     return span
+// }
+
+// console.log(stockSpan([100,80,60,70,60,85,100]))
+
+
+function stockSpan(stock){
+    let span=new Array(stock.length).fill(1)
+    let s=new stack()
+    s.push(0)
+
+    for(let i=1;i<stock.length;i++){
+        let currentPrice=stock[i]
+        while(!s.isEmpty() && currentPrice > stock[s.peek()]){
+            s.pop()
+        }
+        if(s.isEmpty()){
+            span[i]=i+1
+        }else{
+            let prevHigh=s.peek()
+            span[i]=i-prevHigh
+        }
+        s.push(i)
+    }
+    return span
+}
+
+console.log(stockSpan([100,80,60,70,60,85,100]))
