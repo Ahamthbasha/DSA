@@ -829,3 +829,197 @@
 // bst.DFS()
 // bst.delete(10)
 // bst.DFS()
+
+
+class Node{
+    constructor(value){
+        this.value=value
+        this.left=null
+        this.right=null
+    }
+}
+
+class Binarysearchtree{
+    constructor(){
+        this.root=null
+    }
+
+    isEmpty(){
+        return this.root == null
+    }
+
+    insertValue(value){
+        const node=new Node(value)
+        if(this.isEmpty()){
+            this.root=node
+        }else{
+            this.insertNode(this.root,node)
+        }
+    }
+
+    insertNode(root,node){
+        if(node.value < root.value){
+            if(root.left == null){
+                root.left=node
+            }else{
+                this.insertNode(root.left,node)
+            }
+        }else{
+            if(root.right == null){
+                root.right=node
+            }else{
+                this.insertNode(root.right,node)
+            }
+        }
+    }
+
+    search(root,value){
+        if(!root){
+            return false
+        }
+        else if(root.value == value){
+            return true
+        }
+        else if(value < root.value){
+            return this.search(root.left,value)
+        }else{
+            return this.search(root.right,value)
+        }
+    }
+
+    preOrder(root){
+        if(root){
+            console.log(root.value)
+            this.preOrder(root.left)
+            this.preOrder(root.right)
+        }
+    }
+
+    inOrder(root){
+        if(root){
+            this.inOrder(root.left)
+            console.log(root.value)
+            this.inOrder(root.right)
+        }
+    }
+
+    postOrder(root){
+        if(root){
+            this.postOrder(root.left)
+            this.postOrder(root.right)
+            console.log(root.value)
+        }
+    }
+
+    // BFS(){
+    //     const queue=[]
+    //     queue.push(this.root)
+    //     while(queue.length){
+    //         let cur=queue.shift()
+    //         console.log(cur.value)
+    //         if(cur.left){
+    //             queue.push(cur.left)
+    //         }else{
+    //             queue.push(cur.right)
+    //         }
+    //     }
+    // }
+
+    BFS() {
+        const queue = []
+        queue.push(this.root)
+        while (queue.length) {
+            let cur = queue.shift()
+    
+            // Check if cur is null before trying to access its value
+            if (cur) {
+                console.log(cur.value)
+                
+                if (cur.left) {
+                    queue.push(cur.left)
+                }
+    
+                if (cur.right) {
+                    queue.push(cur.right)
+                }
+            }
+        }
+    }
+    
+
+    min(root){
+        if(!root.left){
+            return root.value
+        }else{
+            return this.min(root.left)
+        }
+    }
+
+    max(root){
+        if(!root.right){
+            return root.value
+        }else{
+            return this.max(root.right)
+        }
+    }
+
+    delete(value){
+      this.root=  this.deleteNode(this.root,value)
+    }
+
+    deleteNode(root,value){
+        if(root == null){
+            return null
+        }
+
+        if(value < root.value){
+            root.left=this.deleteNode(root.left,value)
+        }
+        
+        else if(value > root.value){
+            root.right=this.deleteNode(root.right,value)
+        }
+
+        else{
+            //leaf node
+            if(!root.left && !root.right){
+                return null
+            }
+
+            //onde child
+
+            if(!root.left){
+                return root.right
+            }
+            if(!root.right){
+                return root.left
+            }
+
+            root.value=this.min(root.right)
+            root.right=this.deleteNode(root.right,root.value)
+        }
+        return root
+    }
+}
+
+const bst=new Binarysearchtree()
+bst.insertValue(10)
+bst.insertValue(20)
+bst.insertValue(30)
+bst.insertValue(40)
+
+// console.log(bst.search(bst.root,10))
+// console.log(bst.search(bst.root,60))
+
+// bst.preOrder(bst.root)
+// bst.inOrder(bst.root)
+// bst.postOrder(bst.root)
+
+//bst.BFS()
+
+// console.log(bst.max(bst.root))
+// console.log(bst.min(bst.root))
+
+
+bst.delete(10)
+bst.BFS()
