@@ -5914,107 +5914,1619 @@
 // q.print()
 
 
-class Node{
-    constructor(value){
-        this.value=value
-        this.next=null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
 
-class linkedlist{
-    constructor() {
-        this.head=null
-        this.tail=null
-        this.size=0
+// class linkedlist{
+//     constructor() {
+//         this.head=null
+//         this.tail=null
+//         this.size=0
+//     }
+
+//     isEmpty(){
+//         return this.size === 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             this.tail.next=node
+//             node.next=null
+//             this.tail=node
+//         }
+//         this.size++
+//     }
+
+//     removeFromStart(){
+//         let value=this.head.value
+//         if(this.size === 1){
+//             this.head=null
+//             this.tail=null
+//         }else{
+//             this.head=this.head.next
+//         }
+//         this.size--
+//         return value
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }else{
+//             let listValues=""
+//             let temp=this.head
+//             while(temp != null){
+//                 listValues+=temp.value+"->"
+//                 temp=temp.next
+//             }
+//             listValues+='null'
+//             console.log(listValues)
+//         }
+//     }
+// }
+
+// class queue{
+//     constructor(){
+//         this.queue=new linkedlist()
+//     }
+
+//     isEmpty(){
+//         return this.queue.isEmpty()
+//     }
+
+//     getSize(){
+//         return this.queue.getSize()
+//     }
+
+//     enqueue(value){
+//         this.queue.append(value)
+//     }
+
+//     dequeue(){
+//         return this.queue.removeFromStart()
+//     }
+
+//     peek(){
+//         return this.queue.head.value
+//     }
+
+//     print(){
+//         this.queue.print()
+//     }
+// }
+
+// const q=new queue()
+// q.enqueue(10)
+// q.enqueue(20)
+// q.enqueue(30)
+// q.enqueue(40)
+// q.print()
+// console.log(q.dequeue())
+// console.log(q.peek())
+// console.log(q.isEmpty())
+// console.log(q.getSize())
+// q.print()
+
+
+// function bubbleSort(arr){
+//     let swapped
+//     do{
+//         swapped=false
+//         for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] > arr[i+1]){
+//             let temp=arr[i]
+//             arr[i]=arr[i+1]
+//             arr[i+1]=temp
+//             swapped=true
+//         }
+//         }
+//     }while(swapped)
+//         return arr
+// }
+
+// console.log(bubbleSort([1000,-10,-1,0,199,100]))
+
+// function insertionSort(arr){
+//     for(let i=0;i<arr.length;i++){
+//         let curr=arr[i]
+//         let j=i-1
+//         while(j>=0 && arr[j] > curr){
+//             arr[j+1]=arr[j]
+//             j--
+//         }
+//         arr[j+1]=curr
+//     }
+//     return arr
+// }
+
+// console.log(insertionSort([1000,-10,-1,0,199,100]))
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minPos=i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minPos] > arr[j]){
+//                 minPos=j
+//             }
+//         }
+//         let temp=arr[minPos]
+//         arr[minPos]=arr[i]
+//         arr[i]=temp
+//     }
+//     return arr
+// }
+// console.log(selectionSort([1000,-10,-1,0,199,100]))
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot=arr[arr.length-1]
+//     let leftArr=[]
+//     let rightArr=[]
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// console.log(quickSort([1000,-10,-1,0,199,100]))
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+//     let mid=Math.floor(arr.length/2)
+//     let leftArr=arr.slice(0,mid)
+//     let rightArr=arr.slice(mid)
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr=[]
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+// console.log(mergeSort([1000,-10,-1,0,199,100]))
+
+
+// class stack{
+//     constructor(){
+//         this.stack=[]
+//     }
+
+//     push(value){
+//         this.stack.push(value)
+//     }
+
+//     pop(){
+//         return this.stack.pop()
+//     }
+
+//     peek(){
+//         return this.stack[this.stack.length-1]
+//     }
+
+//     isEmpty(){
+//         return this.stack.length == 0
+//     }
+
+//     getSize(){
+//         return this.stack.length
+//     }
+
+//     print(){
+//         console.log(this.stack)
+//     }
+// }
+
+// const s=new stack()
+// s.push(10)
+// s.push(20)
+// s.push(30)
+// s.push(40)
+// s.print()
+// console.log(s.pop())
+// console.log(s.peek())
+// console.log(s.isEmpty())
+// console.log(s.getSize())
+// s.print()
+
+
+// class stack{
+//     constructor(){
+//         this.stack={}
+//         this.top=0
+//     }
+
+//     push(value){
+//         this.stack[this.top]=value
+//         this.top++
+//     }
+
+//     pop(){
+//         let value=this.stack[this.top-1]
+//         delete this.stack[this.top-1]
+//         this.top--
+//         return value
+//     }
+
+//     peek(){
+//         return this.stack[this.top-1]
+//     }
+
+//     isEmpty(){
+//         return this.top == 0
+//     }
+
+//     getSize(){
+//         return this.top
+//     }
+
+//     print(){
+//         console.log(this.stack)
+//     }
+// }
+
+
+// const s=new stack()
+// s.push(10)
+// s.push(20)
+// s.push(30)
+// s.push(40)
+// s.print()
+// console.log(s.pop())
+// console.log(s.peek())
+// console.log(s.isEmpty())
+// console.log(s.getSize())
+// s.print()
+
+
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.tail=null
+//         this.size=0
+//     }
+
+//     isEmpty(){
+//         return this.size === 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+
+//     removeFromStart(){
+//         let value=this.head.value
+//         if(this.size==1){
+//             this.head=null
+//             this.tail=null
+//         }else{
+//             this.head=this.head.next
+//         }
+//         this.size--
+//         return value
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }else{
+//             let listValues=""
+//             let temp=this.head
+//             while(temp!=null){
+//                 listValues+=temp.value+"->"
+//                 temp=temp.next
+//             }
+//             listValues+='null'
+//             console.log(listValues)
+//         }
+//     }
+// }
+
+// class stack{
+//     constructor(){
+//         this.stack=new linkedlist()
+//     }
+
+//     push(value){
+//         this.stack.prepend(value)
+//     }
+
+//     pop(){
+//         return this.stack.removeFromStart()
+//     }
+
+//     peek(){
+//         return this.stack.head.value
+//     }
+
+//     isEmpty(){
+//         return this.stack.isEmpty()
+//     }
+
+//     getSize(){
+//         return this.stack.getSize()
+//     }
+
+//     print(){
+//        this.stack.print()
+//     }
+// }
+
+// const s=new stack()
+// s.push(10)
+// s.push(20)
+// s.push(30)
+// s.push(40)
+// s.print()
+// console.log(s.pop())
+// console.log(s.peek())
+// console.log(s.isEmpty())
+// console.log(s.getSize())
+// s.print()
+
+
+// class queue{
+//     constructor(){
+//         this.queue=[]
+//     }
+
+//     enqueue(value){
+//         this.queue.push(value)
+//     }
+
+//     dequeue(){
+//         return this.queue.shift()
+//     }
+
+//     peek(){
+//         return this.queue[0]
+//     }
+
+//     isEmpty(){
+//         return this.queue.length === 0
+//     }
+
+//     getSize(){
+//         return this.queue.length
+//     }
+
+//     print(){
+//         console.log(this.queue)
+//     }
+// }
+
+// const q=new queue()
+// q.enqueue(10)
+// q.enqueue(20)
+// q.enqueue(30)
+// q.enqueue(40)
+// q.print()
+// console.log(q.dequeue())
+// console.log(q.peek())
+// console.log(q.isEmpty())
+// console.log(q.getSize())
+// q.print()
+
+// class queue{
+//     constructor(){
+//         this.queue={}
+//         this.rear=0
+//         this.front=0
+//     }
+
+//     enqueue(value){
+//         this.queue[this.rear]=value
+//         this.rear++
+//     }
+
+//     dequeue(){
+//         let value=this.queue[this.front]
+//         delete this.queue[this.front]
+//         this.front++
+//         return value
+//     }
+
+//     peek(){
+//         return this.queue[this.front]
+//     }
+
+//     isEmpty(){
+//         return this.rear-this.front === 0
+//     }
+
+//     getSize(){
+//         return this.rear-this.front
+//     }
+
+//     print(){
+//         console.log(this.queue)
+//     }
+// }
+
+// const q=new queue()
+// q.enqueue(10)
+// q.enqueue(20)
+// q.enqueue(30)
+// q.enqueue(40)
+// q.print()
+// console.log(q.dequeue())
+// console.log(q.peek())
+// console.log(q.isEmpty())
+// console.log(q.getSize())
+// q.print()
+
+
+// class Node{
+//     constructor(value) {
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.tail=null
+//         this.size=0
+//     }
+
+//     isEmpty(){
+//         return this.size === 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     append(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             this.tail.next=node
+//             node.next=null
+//             this.tail=node
+//         }
+//         this.size++
+//     }
+
+//     removeFromStart(){
+//         let value=this.head.value
+//         if(this.size==1){
+//             this.head=null
+//             this.tail=null
+//         }else{
+//             this.head=this.head.next
+//         }
+//         this.size--
+//         return value
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return "list is empty"
+//         }else{
+//             let listValues=""
+//             let temp=this.head
+//             while(temp != null){
+//                 listValues+=temp.value+"->"
+//                 temp=temp.next
+//             }
+//             listValues+=null
+//             console.log(listValues)
+//         }
+//     }
+// }
+
+// class queue{
+//     constructor(){
+//         this.queue=new linkedlist()
+//     }
+
+//     enqueue(value){
+//         this.queue.append(value)
+//     }
+
+//     dequeue(){
+//         return this.queue.removeFromStart()
+//     }
+
+//     peek(){
+//         return this.queue.head.value
+//     }
+
+//     getSize(){
+//         return this.queue.getSize()
+//     }
+
+//     isEmpty(){
+//         return this.queue.isEmpty()
+//     }
+
+//     print(){
+//         this.queue.print()
+//     }
+// }
+
+// const q=new queue()
+// q.enqueue(10)
+// q.enqueue(20)
+// q.enqueue(30)
+// q.enqueue(40)
+// q.print()
+// console.log(q.dequeue())
+// console.log(q.peek())
+// console.log(q.isEmpty())
+// console.log(q.getSize())
+// q.print()
+
+
+// class hashtable{
+//     constructor(value){
+//         this.table=new Array(value)
+//         this.value=value
+//     }
+
+//     isEmpty(){
+//         return this.table.length === 0
+//     }
+
+//     getSize(){
+//         return this.table.length
+//     }
+
+//     hash(key){
+//         let total=0
+//         for(let i=0;i<key.length;i++){
+//             total+=key.charCodeAt(i)
+//         }
+//         return total % this.value
+//     }
+
+//     set(key,value){
+//         let index=this.hash(key)
+//         this.table[index]=value
+//     }
+
+//     get(key){
+//         let index=this.hash(key)
+//         return this.table[index]
+//     }
+
+//     remove(key){
+//         let index=this.hash(key)
+//         let value=this.table[index]
+//         this.table[index]=undefined
+//         return value
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// const t=new hashtable(50)
+// t.set("name","basha")
+// t.set("movie","yes boss")
+
+// t.print()
+// console.log(t.get("name"))
+// console.log(t.remove("name"))
+// t.print()
+// console.log(t.isEmpty())
+// console.log(t.getSize())
+
+
+//hashtable collisions
+
+// class hashtable{
+//     constructor(value){
+//         this.table=new Array(value)
+//         this.value=value
+//     }
+
+//     isEmpty(){
+//         return this.table.length === 0
+//     }
+
+//     getSize(){
+//         return this.table.filter(item =>item !== undefined).length
+//     }
+
+//     hash(key){
+//         let total=0
+//         for(let i=0;i<key.length;i++){
+//             total+=key.charCodeAt(i)
+//         }
+//         return total % this.value
+//     }
+
+//     set(key,value){
+//         let index=this.hash(key)
+//         let bucket=this.table[index]
+//         if(!bucket){
+//             this.table[index]=[[key,value]]
+//         }else{
+//             let samekey=bucket.find(item => item[0] == key)
+//             if(samekey){
+//                 samekey[1]=value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
+
+//     get(key){
+//         let index=this.table[key]
+//         let bucket=this.table[index]
+//         if(bucket){
+//             let sameKey=bucket.find(item=>item[0]==key)
+//                 if(sameKey){
+//                     return sameKey[1]
+//                 }
+//             }
+//             return "invalid key or key is not in table"
+//         }
+    
+
+//     remove(key){
+//         let index=this.hash(key)
+//         let bucket=this.table[index]
+//         let samekey=bucket.find(item => item[0]==key)
+//         if(samekey){
+//            return bucket.splice(bucket.indexOf(samekey),1)
+//         }else{
+//             return "invalid key or key is not in hashtable"
+//         }
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// const t=new hashtable(50)
+// t.set("name","basha")
+// t.set("movie","yes boss")
+
+// t.print()
+// console.log(t.get("name"))
+// console.log(t.remove("name"))
+// t.print()
+// console.log(t.isEmpty())
+// console.log(t.getSize())
+// t.set("mevio","king")
+// t.print()
+
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.left=null
+//         this.right=null
+//     }
+// }
+
+// class Binarysearchtree{
+//     constructor(){
+//         this.root=null
+//     }
+
+//     isEmpty(){
+//         return this.root === null
+//     }
+
+//     insert(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.root=node
+//         }else{
+//             this.insertNode(this.root,node)
+//         }
+//     }
+
+//     insertNode(root,node){
+//         if(node.value < root.value){
+//             if(root.left === null){
+//                 root.left=node
+//             }else{
+//                 this.insertNode(root.left,node)
+//             }
+//         }else{
+//             if(root.right === null){
+//                 root.right=node
+//             }else{
+//                 this.insertNode(root.right,node)
+//             }
+//         }
+//     }
+
+//     search(root,value){
+//         if(!root){
+//             return false
+//         }
+//         else if(root.value == value){
+//             return true
+//         }
+//         else if(value < root.value){
+//             return this.search(root.left,value)
+//         }else{
+//             return this.search(root.right,value)
+//         }
+//     }
+
+//     preOrder(root){
+//         if(root){
+//             console.log(root.value)
+//             this.preOrder(root.left)
+//             this.preOrder(root.right)
+//         }
+//     }
+
+//     inOrder(root){
+//         if(root){
+//             this.inOrder(root.left)
+//             console.log(root.value)
+//             this.inOrder(root.right)
+//         }
+//     }
+
+//     postOrder(root){
+//         if(root){
+//             this.postOrder(root.left)
+//             this.postOrder(root.right)
+//             console.log(root.value)
+//         }
+//     }
+
+//     BFS(){
+//         if(this.isEmpty()){
+//             return
+//         }
+//         const queue=[]
+//         queue.push(this.root)
+//         while(queue.length){
+//             let cur=queue.shift()
+//             if(cur){
+//             console.log(cur.value)
+//             if(cur.left){
+//                 queue.push(cur.left)
+//             }
+//             if(cur.right){
+//                 queue.push(cur.right)
+//             }
+//         }
+//         }
+//     }
+
+//     min(root){
+//         if(!root.left){
+//             return root.value
+//         }else{
+//             return this.min(root.left)
+//         }
+//     }
+
+//     max(root){
+//         if(!root.right){
+//             return root.value
+//         }else{
+//             return this.max(root.right)
+//         }
+//     }
+
+//     delete(value){
+//         this.root=this.deleteNode(this.root,value)
+//     }
+
+//     deleteNode(root,value){
+//         if(root == null){
+//             return null
+//         }
+
+//         if(value < root.value){
+//             root.left=this.deleteNode(root.left,value)
+//         }
+//         else if(value > root.value){
+//             root.right=this.deleteNode(root.right,value)
+//         }else{
+//             //leaf node
+//             if(!root.left && !root.right){
+//                 return null
+//             }
+
+//             //one child
+
+//             if(!root.left){
+//                 return root.right
+//             }
+//             else if(!root.right){
+//                 return root.left
+//             }
+//             //root node
+//             root.value=this.min(root.right)
+//             root.right=this.deleteNode(root.right,root.value)
+//         }
+//         return root
+//     }
+// }
+
+// const bst=new Binarysearchtree()
+// console.log("it is empty?",bst.isEmpty())
+// bst.insert(10)
+// bst.insert(5)
+// bst.insert(15)
+// bst.insert(3)
+// bst.insert(7)
+
+// console.log(bst.search(bst.root,10))
+// console.log(bst.search(bst.root,5))
+// console.log(bst.search(bst.root,15))
+// console.log(bst.search(bst.root,20))
+
+//bst.preOrder(bst.root)
+ //bst.inOrder(bst.root)
+ //bst.postOrder(bst.root)
+
+//bst.BFS()
+
+// console.log(bst.min(bst.root))
+// console.log(bst.max(bst.root))
+// bst.BFS()
+// bst.delete(3)
+// bst.BFS()
+// bst.delete(15)
+// bst.BFS()
+// bst.delete(10)
+// bst.BFS()
+
+
+// class minHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     leftChild(index){
+//         return 2*index+1
+//     }
+
+//     rightChild(index){
+//         return 2*index+2
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(index > 0 && this.heap[this.parentIndex(index)] > this.heap[index]){
+//             let temp=this.heap[this.parentIndex(index)]
+//             this.heap[this.parentIndex(index)]=this.heap[index]
+//             this.heap[index]=temp
+
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length == null){
+//             return null
+//         }
+//         let value=this.heap[0]
+//         this.heap[0]=this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown(0)
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         let smallest=index
+//         let left=this.leftChild(index)
+//         let right=this.rightChild(index)
+
+//         if(left < this.heap.length && this.heap[left] < this.heap[smallest]){
+//             smallest=left
+//         }
+
+//         if(right < this.heap.length && this.heap[right] < this.heap[smallest]){
+//             smallest=right
+//         }
+
+//         if(smallest != index){
+//             let temp=this.heap[index]
+//             this.heap[index]=this.heap[smallest]
+//             this.heap[smallest]=temp
+
+//             this.heapifyDown(smallest)
+//         }
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+// }
+
+// const min=new minHeap()
+// min.insert(10200)
+// min.insert(1160)
+// min.insert(70)
+// min.insert(100)
+// min.print()
+
+// const removedMin = min.remove();  // Remove the root (smallest)
+// console.log("Removed element:", removedMin);
+// min.print(); 
+
+// class maxHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+    
+//     }
+
+//     leftChild(index){
+//         return 2*index+1
+//     }
+
+//     rightChild(index){
+//         return 2*index+2
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     peek(){
+//         return this.heap[0]
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(index > 0 && this.heap[this.parentIndex(index)] < this.heap[index]){
+//             let temp=this.heap[this.parentIndex(index)]
+//             this.heap[this.parentIndex(index)]=this.heap[index]
+//             this.heap[index]=temp
+
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length == 0){
+//             return null
+//         }
+//         let value=this.heap[0]
+//         this.heap[0]=this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown(0)
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         let largest=index
+//         let left=this.leftChild(index)
+//         let right=this.rightChild(index)
+
+//         if(left < this.heap.length && this.heap[left] > this.heap[largest]){
+//             largest=left
+//         }
+
+//         if(right < this.heap.length && this.heap[right] > this.heap[largest]){
+//             largest=right
+//         }
+
+//         if(largest !== index){
+//             let temp=this.heap[index]
+//             this.heap[index]=this.heap[largest]
+//             this.heap[largest]=temp
+
+//             this.heapifyDown(largest)
+//         }
+//     }
+// }
+
+// const max = new maxHeap()
+// max.insert(100)
+// max.insert(10)
+// max.insert(5)
+// max.insert(1)
+// max.print()  // Expected output: [100, 10, 5, 1]
+
+// console.log(max.peek())  // Expected output: 100 (largest element)
+
+// const removedMax = max.remove()  // Remove the root (largest)
+// console.log("Removed element:", removedMax)  // Expected output: Removed element: 100
+// max.print()  // Expected output: [10, 1, 5]
+
+
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.left=null
+//         this.right=null
+//     }
+// }
+
+// class Binarysearchtree{
+//     constructor(){
+//         this.root=null
+//     }
+
+//     isEmpty(){
+//         return this.root == null
+//     }
+
+//     insert(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.root=node
+//         }else{
+//             this.insertNode(this.root,node)
+//         }
+//     }
+
+//     insertNode(root,node){
+//         if(node.value < root.value){
+//             if(root.left == null){
+//                 root.left=node
+//             }else{
+//                 this.insertNode(root.left,node)
+//             }
+//         }else{
+//             if(root.right==null){
+//                 root.right=node
+//             }else{
+//                 this.insertNode(root.right,node)
+//             }
+//         }
+//     }
+
+//     search(root,value){
+//         if(!root){
+//             return false
+//         }
+//         else if(root.value == value){
+//             return true
+//         }
+//         else if(value < root.value){
+//             this.search(root.left,value)
+//         }
+//         else{
+//             this.search(root.right,value)
+//         }
+//     }
+
+//     preOrder(root){
+//         if(root){
+//             console.log(root.value)
+//             this.preOrder(root.left)
+//             this.preOrder(root.right)
+//         }
+//     }
+
+//     inOrder(root){
+//         if(root){
+//             this.inOrder(root.left)
+//             console.log(root.value)
+//             this.inOrder(root.right)
+//         }
+//     }
+
+//     postOrder(root){
+//         if(root){
+//             this.postOrder(root.left)
+//             this.postOrder(root.right)
+//             console.log(root.value)
+//         }
+//     }
+
+//     BFS(){
+//         const queue=[]
+//         queue.push(this.root)
+//         while(queue.length){
+//             let cur=queue.shift()
+//             if(cur){
+//                 console.log(cur.value)
+//             }
+//             if(cur.left){
+//                 queue.push(cur.left)
+//             }
+//             if(cur.right){
+//                 queue.push(cur.right)
+//             }
+//         }
+//     }
+
+//     min(root){
+//         if(!root.left){
+//             return root.value
+//         }else{
+//             return this.min(root.left)
+//         }
+//     }
+
+//     max(root){
+//         if(!root.right){
+//             return root.value
+//         }else{
+//             return this.max(root.right)
+//         }
+//     }
+
+//     delete(value){
+//         this.root=this.delelteNode(this.root,value)
+//     }
+
+//     delelteNode(root,value){
+//         if(root === null){
+//             return null
+//         }
+
+//         if(value < root.value){
+//             root.left=this.delelteNode(root.left,value)
+//         }
+
+//         else if(value > root.value){
+//             root.right=this.delelteNode(root.right,value)
+//         }
+//         else{
+//             //leaf
+//             if(!root.left && !root.right){
+//                 return null
+//             }
+
+//             //one child
+//             if(!root.left){
+//                 return root.right
+//             }
+//             if(!root.right){
+//                 return root.left
+//             }
+
+//             root.value=this.min(root.right)
+//             root.right=this.delelteNode(root.right,root.value)
+//         }
+//         return root
+//     }
+// }
+
+// const bst=new Binarysearchtree()
+
+// bst.insert(10)
+// bst.insert(5)
+// bst.insert(15)
+// bst.insert(3)
+// bst.insert(7)
+
+// bst.search(bst.root,60)
+// bst.search(bst.root,10)
+
+//bst.preOrder(bst.root)
+//bst.postOrder(bst.root)
+//bst.inOrder(bst.root)
+
+//bst.BFS()
+
+// console.log(bst.min(bst.root))
+// console.log(bst.max(bst.root))
+
+// bst.delete(3)
+//bst.delete(15)
+// bst.delete(10)
+// bst.BFS()
+
+
+// class minHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     leftChild(index){
+//         return 2*index+1
+//     }
+
+//     rightChild(index){
+//         return 2*index+2
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     build(arr){
+//         this.heap=arr.slice()
+//         for(let i=Math.floor((arr.length-1)/2);i>=0;i--){
+//             this.heapifyDown(i)
+//         }
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(index > 0 && this.heap[this.parentIndex(index)] > this.heap[index]){
+//             let temp=this.heap[this.parentIndex(index)]
+//             this.heap[this.parentIndex(index)]=this.heap[index]
+//             this.heap[index]=temp
+
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length==0){
+//             return null
+//         }
+
+//         let value=this.heap[0]
+
+//         this.heap[0]=this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown(0)
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         let smallest=index
+//         let left=this.leftChild(index)
+//         let right=this.rightChild(index)
+
+//         if(left < this.heap.length && this.heap[left] < this.heap[smallest]){
+//             smallest=left
+//         }
+
+//         if(right < this.heap.length && this.heap[right] < this.heap[smallest]){
+//             smallest=right
+//         }
+
+//         if(smallest != index){
+//             let temp=this.heap[index]
+//             this.heap[index]=this.heap[smallest]
+//             this.heap[smallest]=temp
+
+//             this.heapifyDown(smallest)
+//         }
+//     }
+// }
+
+
+// function heapSort(arr){
+//     const min2=new minHeap()
+
+//     for(let i of arr){
+//         min2.insert(i)
+//     }
+
+//     let sortedArr=[]
+//     while(min2.heap.length > 0){
+//         sortedArr.push(min2.remove())
+//     }
+
+//     return sortedArr
+
+// }
+// const min=new minHeap()
+// // min.insert(10200)
+// // min.insert(1160)
+// // min.insert(70)
+// // min.insert(100)
+// // min.print()
+
+// // const removedMin = min.remove();  // Remove the root (smallest)
+// // console.log("Removed element:", removedMin);
+// // min.print(); 
+
+// // const arr2 = [10, 20, 5, 30, 25, 15, 40];
+// // min.build(arr2)
+// // min.print()
+// const arr2 = [10, 20, 5, 30, 25, 15, 40];
+// console.log("Min Heap Sorted Array:", heapSort(arr2)); 
+
+class maxHeap{
+    constructor(){
+        this.heap=[]
     }
 
-    isEmpty(){
-        return this.size === 0
+    parentIndex(index){
+        return Math.floor((index-1)/2)
     }
 
-    getSize(){
-        return this.size
+    leftChild(index){
+        return 2*index+1
     }
 
-    append(value){
-        const node=new Node(value)
-        if(this.isEmpty()){
-            this.head=node
-            this.tail=node
-        }else{
-            this.tail.next=node
-            node.next=null
-            this.tail=node
+    rightChild(index){
+        return 2*index+2
+    }
+
+    build(arr){
+        this.heap=arr.slice()
+        for(let i=Math.floor((arr.length-1)/2);i>=0;i--){
+            this.heapifyDown(i)
         }
-        this.size++
     }
 
-    removeFromStart(){
-        let value=this.head.value
-        if(this.size === 1){
-            this.head=null
-            this.tail=null
-        }else{
-            this.head=this.head.next
+    print(){
+        console.log(this.heap)
+    }
+
+    insert(value){
+        this.heap.push(value)
+        this.heapifyUp(this.heap.length-1)
+    }
+
+    heapifyUp(index){
+        while(index > 0 && this.heap[this.parentIndex(index)] < this.heap[index]){
+            let temp=this.heap[this.parentIndex(index)]
+            this.heap[this.parentIndex(index)]=this.heap[index]
+            this.heap[index]=temp
+
+            index=this.parentIndex(index)
         }
-        this.size--
+    }
+
+    remove(){
+        if(this.heap.length==0){
+            return null
+        }
+
+        let value=this.heap[0]
+        this.heap[0]=this.heap[this.heap.length-1]
+        this.heap.pop()
+        this.heapifyDown(0)
         return value
     }
 
-    print(){
-        if(this.isEmpty()){
-            return "list is empty"
-        }else{
-            let listValues=""
-            let temp=this.head
-            while(temp != null){
-                listValues+=temp.value+"->"
-                temp=temp.next
+    heapifyDown(index){
+        let largest=index
+        let left=this.leftChild(index)
+        let right=this.rightChild(index)
+
+        if(left < this.heap.length && this.heap[left] > this.heap[largest]){
+            largest=left
+        }
+
+        if(right < this.heap.length && this.heap[right] > this.heap[largest]){
+            largest=right
+        }
+
+        if(largest != index){
+            let temp=this.heap[index]
+            this.heap[index]=this.heap[largest]
+            this.heap[largest]=temp
+
+            this.heapifyDown(largest)
+        }
+    }
+
+    peek(){
+        return this.heap[0]
+    }
+
+}
+
+function heapSort(arr){
+    const max=new maxHeap()
+
+    for(let i of arr){
+        max.insert(i)
+    }
+
+
+    let sortedArr=[]
+    while(max.heap.length > 0){
+        sortedArr.push(max.remove())
+    }
+
+    return sortedArr.reverse()
+}
+
+const max=new maxHeap()
+// max.insert(100)
+// max.insert(10)
+// max.insert(5)
+// max.insert(1)
+// max.print()  // Expected output: [100, 10, 5, 1]
+
+// console.log(max.peek())  // Expected output: 100 (largest element)
+
+// const removedMax = max.remove()  // Remove the root (largest)
+// console.log("Removed element:", removedMax)  // Expected output: Removed element: 100
+// max.print()  // Expected output: [10, 1, 5]
+// const arr = [10, 20, 5, 30, 25, 15, 40];
+
+// max.build(arr)
+// max.print()
+// console.log("Original Array:", arr);
+// const sortedArray = heapSort(arr);
+// console.log("Sorted Array:", sortedArray);
+
+
+class Node{
+    constructor(){
+        this.children={}
+        this.isEndOfWord=false
+    }
+}
+
+class trie{
+    constructor(){
+        this.root=new Node()
+    }
+
+    insert(word){
+        let currentNode=this.root
+
+        for(let char of word){
+            if(!currentNode.children[char]){
+                currentNode.children[char]=new Node()
             }
-            listValues+='null'
-            console.log(listValues)
+            currentNode=currentNode.children[char]
+        }
+        currentNode.isEndOfWord=true
+    }
+
+
+    search(word){
+        let currentNode=this.root
+        for(let char of word){
+            if(!currentNode.children[char]){
+                return false
+            }
+            currentNode=currentNode.children[char]
+        }
+        return true
+    }
+
+    startswith(prefix){
+        let currentNode=this.root
+
+        for(let char of prefix){
+            if(!currentNode.children[char]){
+                return false
+            }
+            currentNode=currentNode.children[char]
+        }
+        return true
+    }
+
+    printWords(){
+        let words=[]
+        this._dfs(this.root,"",words)
+        console.log(words)
+    }
+
+    _dfs(node,currentWord,words){
+        if(node.isEndOfWord){
+            words.push(currentWord)
+        }
+
+        for(let char in node.children){
+            this._dfs(node.children[char],currentWord+char,words)
+        }
+    }
+
+    autoComplete(prefix){
+        let currentNode=this.root
+        for(let char of prefix){
+            if(!currentNode.children[char]){
+                return []
+            }
+            currentNode=currentNode.children[char]
+        }
+        let suggestions=[]
+        this.collectSuggestion(currentNode,prefix,suggestions)
+        return suggestions
+    }
+
+    collectSuggestion(node,prefix,suggestions){
+        if(node.isEndOfWord){
+            suggestions.push(prefix)
+        }
+
+        for(let char in node.children){
+            this.collectSuggestion(node.children[char],prefix+char,suggestions)
         }
     }
 }
 
-class queue{
-    constructor(){
-        this.queue=new linkedlist()
-    }
+const t = new trie();
 
-    isEmpty(){
-        return this.queue.isEmpty()
-    }
+// Inserting words
+t.insert("apple");
+t.insert("app");
+t.insert("banana");
+t.insert("bat");
+t.insert("batman");
 
-    getSize(){
-        return this.queue.getSize()
-    }
+// Searching for words
+console.log(t.search("apple"));  // true
+console.log(t.search("app"));    // true
+console.log(t.search("banana"));// true
+console.log(t.search("bat"));   // true
+console.log(t.search("batman")); // true
+console.log(t.search("bats"));  // false
 
-    enqueue(value){
-        this.queue.append(value)
-    }
+// Checking for prefix
+console.log(t.startswith("app"));  // true
+console.log(t.startswith("ban"));  // true
+console.log(t.startswith("bat"));  // true
+console.log(t.startswith("cat"));  // false
 
-    dequeue(){
-        return this.queue.removeFromStart()
-    }
+t.printWords()
 
-    peek(){
-        return this.queue.head.value
-    }
-
-    print(){
-        this.queue.print()
-    }
-}
-
-const q=new queue()
-q.enqueue(10)
-q.enqueue(20)
-q.enqueue(30)
-q.enqueue(40)
-q.print()
-console.log(q.dequeue())
-console.log(q.peek())
-console.log(q.isEmpty())
-console.log(q.getSize())
-q.print()
+// Auto-complete suggestions
+console.log(t.autoComplete("ba")); // ["banana", "bat", "batman"]
+console.log(t.autoComplete("app")); // ["apple", "app"]
