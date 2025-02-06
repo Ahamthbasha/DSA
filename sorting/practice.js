@@ -1,6 +1,6 @@
-//bubble sort
+//bubble sort 
 
-//run time complexity:O(n square) quadratic
+//run time complexity:O(n square) quadratic.space complexity is :O(1).In place sorting algorithm
 
 // function bubbleSort(arr){
 //     let swapped
@@ -19,9 +19,9 @@
 // }
 // console.log(bubbleSort([8,20,-2,4,-6]))
 
-//insertion sort
+//insertion sort in place sorting algorithm
 
-//time complexity O(n*n) quadratic 
+//time complexity O(n*n) quadratic.space complexity is O(1)
 
 // function insertionSort(arr){
 //     for(let i=1;i<arr.length;i++){
@@ -39,7 +39,8 @@
 // console.log(insertionSort([8,20,-2,4,-6]))
 
 //time complexity of quick sort in average Case will be O(n logn) because we use loop and using recursion which divide the input. worst case will be O(n*n)
-//Space complexity: O(log n) on average, O(n) in the worst case
+//Space complexity: O(log n) on average, O(n) in the worst case.
+//in place sorting algorithm which does not uses any additional memory
 
 // function quickSort(arr){
 //     if(arr.length < 2){
@@ -61,6 +62,8 @@
 
 //Merge Sort
 
+//Not in place order because it uses an additional memory
+//time complexity O(n logn) and spaceComplexity O(n)
 // function mergeSort(arr){
 //     if(arr.length < 2){
 //         return arr
@@ -86,6 +89,9 @@
 
 
 //selection sort
+//in place order
+//Time complexity will be O(n2)
+//space complexity will be O(1)
 
 function selectionSort(arr){
     for(let i=0;i<arr.length-1;i++){
