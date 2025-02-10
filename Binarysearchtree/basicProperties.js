@@ -128,7 +128,7 @@ class Bst{
             this.findLeafNode(root.right,result)
             return result
         }
-//parent of the target
+//parent oda parent of the target
         findAncestor(root,target,ancestor=[]){
             if(!root){
                 return []
