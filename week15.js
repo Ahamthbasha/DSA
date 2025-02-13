@@ -1399,3 +1399,538 @@ b.insert(18);
 // console.log("find path between 7 to 18",b.findPathBetweeenTwoNodes(7,18))
 
 // console.log("find distance between 7 to 18",b.findDistanceBetweenTwoNodes(7,18))
+
+
+
+//maxHeap
+
+// class Heap {
+//     constructor() {
+//       this.heap = [];
+//     }
+  
+//     // Swap two elements in the heap
+//     swap(index1, index2) {
+//       let temp = this.heap[index1];
+//       this.heap[index1] = this.heap[index2];
+//       this.heap[index2] = temp;
+//     }
+  
+//     // Check if there is a left child
+//     hasLeftChild(index) {
+//       return this.getLeftChildIndex(index) < this.heap.length;
+//     }
+  
+//     // Check if there is a right child
+//     hasRightChild(index) {
+//       return this.getRightChildIndex(index) < this.heap.length;
+//     }
+  
+//     // Check if there is a parent
+//     hasParent(index) {
+//       return this.getParentIndex(index) >= 0;
+//     }
+  
+//     // Get index of the left child
+//     getLeftChildIndex(index) {
+//       return 2 * index + 1;
+//     }
+  
+//     // Get index of the right child
+//     getRightChildIndex(index) {
+//       return 2 * index + 2;
+//     }
+  
+//     // Get index of the parent
+//     getParentIndex(index) {
+//       return Math.floor((index - 1) / 2);
+//     }
+  
+//     // Get left child value
+//     getLeftChild(index) {
+//       return this.heap[this.getLeftChildIndex(index)];
+//     }
+  
+//     // Get right child value
+//     getRightChild(index) {
+//       return this.heap[this.getRightChildIndex(index)];
+//     }
+  
+//     // Get parent value
+//     getParent(index) {
+//       return this.heap[this.getParentIndex(index)];
+//     }
+  
+//     // Peek at the root element
+//     peek() {
+//       if (this.heap.length === 0) return null;
+//       return this.heap[0];
+//     }
+  
+//     // Heapify up the element at the given index
+//     heapifyUp(index) {
+//       while (this.hasParent(index) && this.getParent(index) < this.heap[index]) {
+//         this.swap(this.getParentIndex(index), index);
+//         index = this.getParentIndex(index);
+//       }
+//     }
+  
+//     // Add new element to the heap
+//     addNewElement(value) {
+//       this.heap.push(value);
+//       this.heapifyUp(this.heap.length - 1); // Make sure to pass the current index
+//     }
+  
+//     // Remove the root element from the heap
+//     remove() {
+//       if (this.heap.length === 0) return null;
+//       const item = this.heap[0];
+//       this.heap[0] = this.heap[this.heap.length - 1];
+//       this.heap.pop();
+//       this.heapifyDown(0); // Start at the root
+//       return item;
+//     }
+  
+//     // Heapify down the element at the given index
+//     heapifyDown(index) {
+//       while (this.hasLeftChild(index)) {
+//         let largeChildIndex = this.getLeftChildIndex(index);
+//         if (this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)) {
+//           largeChildIndex = this.getRightChildIndex(index);
+//         }
+//         if (this.heap[index] > this.heap[largeChildIndex]) {
+//           break;
+//         } else {
+//           this.swap(index, largeChildIndex);
+//         }
+//         index = largeChildIndex;
+//       }
+//     }
+  
+//     // Sort the array using heap sort
+//     heapSort(array) {
+//       const maxHeap = new Heap();
+  
+//       // Insert all elements into the max heap
+//       array.forEach(value => {
+//         maxHeap.addNewElement(value);
+//       });
+  
+//       const sortedArray = [];
+//       // Extract the maximum element from the heap
+//       while (maxHeap.heap.length) {
+//         sortedArray.push(maxHeap.remove());
+//       }
+//       return sortedArray.reverse(); // Return sorted in ascending order
+//     }
+  
+//     // Find the kth smallest element using a max heap
+//     findKthSmallest(nums, k) {
+//       const maxHeap = new Heap();
+//       for (let num of nums) {
+//         maxHeap.addNewElement(num);
+//         if (maxHeap.heap.length > k) {
+//           maxHeap.remove();
+//         }
+//       }
+//       return maxHeap.peek();
+//     }
+//   }
+  
+
+//   const heap = new Heap();
+
+// // Test addNewElement and peek
+// heap.addNewElement(10);
+// heap.addNewElement(20);
+// heap.addNewElement(15);
+// heap.addNewElement(30);
+// heap.addNewElement(5);
+
+// console.log('Heap after insertions:', heap.heap); // Max Heap should be [30, 20, 15, 10, 5]
+// console.log('Peek (Max element):', heap.peek()); // Should return 30
+
+// // Test remove
+// console.log('Removed element (root):', heap.remove()); // Should remove 30 (root)
+// console.log('Heap after removal:', heap.heap); // New heap should be [20, 10, 15, 5]
+
+// // Test heapSort
+// const unsortedArray = [10, 20, 15, 30, 5];
+// const sortedArray = heap.heapSort(unsortedArray);
+// console.log('Sorted Array:', sortedArray); // Should return [5, 10, 15, 20, 30]
+
+// // Test findKthSmallest (Find 3rd smallest)
+// const nums = [10, 20, 15, 30, 5];
+// const kthSmallest = heap.findKthSmallest(nums, 3);
+// console.log('3rd Smallest Element:', kthSmallest); // Should return 15
+
+
+// class maxHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2*index+1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2*index+2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.getRightChildIndex(index) < this.heap.length
+//     }
+
+//     peek(){
+//         if(this.heap.length == 0){
+//             return "it is zero"
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     swap(index1,index2){
+//         let temp=this.heap[index1]
+//         this.heap[index1]=this.heap[index2]
+//         this.heap[index2]=temp
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
+//             index=this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+
+//         let value=this.heap[0]
+//         this.heap[0]=this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown(0)
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         while(this.hasLeftChild(index)){
+//             let largest=this.getLeftChildIndex(index)
+//             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest=this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] >= this.heap[largest]){
+//                 break
+//             }
+//             else{
+//                 this.swap(index,largest)
+//             }
+
+//             index=largest
+//         }
+//     }
+
+//     heapSort(arr){
+//         const m=new maxHeap()
+//         for(let num of arr){
+//             m.insert(num)
+//         }
+
+//         let sortedArr=[]
+
+//         while(m.heap.length){
+//             sortedArr.push(m.remove())
+//         }
+
+//         return sortedArr.reverse()
+//     }
+
+//     findKthSmallest(arr,k){
+//         const m=new maxHeap()
+
+//         for(let num of arr){
+//             m.insert(num)
+//             if(m.heap.length > k){
+//                 m.remove()
+//             }
+//         }
+
+//         return m.peek()
+//     }
+// }
+
+//   const heap = new maxHeap();
+
+// // Test addNewElement and peek
+// heap.insert(10);
+// heap.insert(20);
+// heap.insert(15);
+// heap.insert(30);
+// heap.insert(5);
+
+// console.log('Heap after insertions:', heap.heap); // Max Heap should be [30, 20, 15, 10, 5]
+// console.log('Peek (Max element):', heap.peek()); // Should return 30
+
+// // Test remove
+// console.log('Removed element (root):', heap.remove()); // Should remove 30 (root)
+// console.log('Heap after removal:', heap.heap); // New heap should be [20, 10, 15, 5]
+
+// // Test heapSort
+// const unsortedArray = [10, 20, 15, 30, 5];
+// const sortedArray = heap.heapSort(unsortedArray);
+// console.log('Sorted Array:', sortedArray); // Should return [5, 10, 15, 20, 30]
+
+// // Test findKthSmallest (Find 3rd smallest)
+// const nums = [10, 20, 15, 30, 5];
+// const kthSmallest = heap.findKthSmallest(nums, 3);
+// console.log('3rd Smallest Element:', kthSmallest); // Should return 15
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// class minHeap {
+//     constructor() {
+//         this.heap = [];
+//     }
+
+//     parentIndex(index) {
+//         return Math.floor((index - 1) / 2);
+//     }
+
+//     leftChildIndex(index) {
+//         return 2 * index + 1;
+//     }
+
+//     rightChildIndex(index) {
+//         return 2 * index + 2;
+//     }
+
+//     getParent(index) {
+//         return this.heap[this.parentIndex(index)];
+//     }
+
+//     leftChild(index) {
+//         return this.heap[this.leftChildIndex(index)];
+//     }
+
+//     rightChild(index) {
+//         return this.heap[this.rightChildIndex(index)];
+//     }
+
+//     hasParent(index) {
+//         return this.parentIndex(index) >= 0;
+//     }
+
+//     hasLeftChild(index) {
+//         return this.leftChildIndex(index) < this.heap.length;
+//     }
+
+//     hasRightChild(index) {
+//         return this.rightChildIndex(index) < this.heap.length;
+//     }
+
+//     swap(index1, index2) {
+//         let temp = this.heap[index1];
+//         this.heap[index1] = this.heap[index2];
+//         this.heap[index2] = temp;
+//     }
+
+//     insert(value) {
+//         this.heap.push(value);
+//         this.heapifyUp(this.heap.length - 1);
+//     }
+
+//     heapifyUp(index) {
+//         while (this.hasParent(index) && this.getParent(index) > this.heap[index]) {
+//             this.swap(this.parentIndex(index), index);
+//             index = this.parentIndex(index);
+//         }
+//     }
+
+//     remove() {
+//         if (this.heap.length == 0) {
+//             return 0;
+//         }
+
+//         let value = this.heap[0];
+//         this.heap[0] = this.heap[this.heap.length - 1];
+//         this.heap.pop();
+//         this.heapifyDown(0);
+//         return value;
+//     }
+
+//     heapifyDown(index) {
+//         while (this.hasLeftChild(index)) {
+//             let smallest = this.leftChildIndex(index);
+//             if (this.hasRightChild(index) && this.rightChild(index) < this.leftChild(index)) {
+//                 smallest = this.rightChildIndex(index);
+//             }
+
+//             if (this.heap[index] <= this.heap[smallest]) {
+//                 break;
+//             }
+
+//             else {
+//                 this.swap(index, smallest);
+//             }
+//             index = smallest;
+//         }
+//     }
+
+//     heapSort(arr) {
+//         const m = new minHeap();
+//         for (let num of arr) {
+//             m.insert(num);
+//         }
+
+//         let sortedArr = [];
+
+//         while (m.heap.length) {
+//             sortedArr.push(m.remove());
+//         }
+
+//         return sortedArr;
+//     }
+
+//     // Modify this method to find the k-th largest element
+//     findKthLargest(arr, k) {
+//         const min= new minHeap();
+
+//         for (let num of arr) {
+//             min.insert(num);
+//             if (min.heap.length > k) {
+//                 min.remove(); // Remove the smallest element in the heap
+//             }
+//         }
+//         return min.peek(); // Root will be the k-th largest
+//     }
+
+//     peek() {
+//         if (this.heap.length == 0) {
+//             return "heap is empty";
+//         }
+//         return this.heap[0];
+//     }
+
+//     print() {
+//         console.log(this.heap);
+//     }
+// }
+
+
+// const heap = new minHeap();
+
+// heap.insert(10);
+// heap.insert(20);
+// heap.insert(15);
+// heap.insert(30);
+// heap.insert(5);
+
+// console.log('Heap after insertions:', heap.heap);  // Should print the heap structure.
+// console.log('Peek (Min element):', heap.peek());  // Should print the min element (5)
+
+// console.log('Removed element (root):', heap.remove());  // Should remove 5 (root)
+// console.log('Heap after removal:', heap.heap);  // Should print the new heap.
+
+// const unsortedArray = [10, 20, 15, 30, 5];
+// const sortedArray = heap.heapSort(unsortedArray);
+// console.log('Sorted Array:', sortedArray);  // Should return [5, 10, 15, 20, 30]
+
+// const nums = [10, 20, 15, 30, 5];
+// const kthLargest = heap.findKthLargest(nums, 3);  // Find 3rd largest element
+// console.log('3rd Largest Element:', kthLargest);  // Should return 15
+
+
+// function topKFrequentElement(arr,k){
+//     let freqMap=new Map()
+//     for(let num of arr){
+//         freqMap.set(num,(freqMap.get(num)||0)+1)
+//     }
+
+//     let result=[]
+
+//     for(let [num,freq] of freqMap.entries()){
+//         if(freq==k){
+//             result.push(num)
+//         }
+//     }
+//     return result
+// }
+
+// const nums = [1, 1, 1, 2, 2, 3];
+// const k = 1;
+// console.log(topKFrequentElement(nums, k)); 
+
+// function heapify(arr,n,i){
+//     let largest=i
+//     let left=2*i+1
+//     let right=2*i+2
+
+//     if(left < n && arr[left] > arr[largest]){
+//         largest=left
+//     }
+
+//     if(right < n && arr[right] > arr[largest]){
+//         largest=right
+//     }
+
+//     if(largest != i){
+//         [arr[i],arr[largest]]=[arr[largest],arr[i]]
+//         heapify(arr,n,largest)
+//     }
+
+// }
+
+
+// function heapSort(arr){
+//     let n=arr.length
+
+//     for(let i=Math.floor(n/2)-1;i>=0;i--){
+//         heapify(arr,n,i)
+//     }
+
+//     for(let i=n-1;i>0;i--){
+//         [arr[0],arr[i]]=[arr[i],arr[0]]
+//         heapify(arr,i,0)
+//     }
+// }
+// const arr = [10, 20, 15, 30, 5];
+// console.log("Original Array:", arr);
+// heapSort(arr);
+// console.log("Sorted Array:", arr);
