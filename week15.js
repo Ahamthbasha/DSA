@@ -4501,141 +4501,453 @@
 // console.log(graph.dfsCycleDetection("A"));
 
 
-class Graph{
-    constructor(){
-        this.adjancyList={}
-    }
+// class Graph{
+//     constructor(){
+//         this.adjancyList={}
+//     }
 
-    addVertex(vertex){
-        if(!this.adjancyList[vertex]){
-            this.adjancyList[vertex]=new Set()
-        }
-    }
+//     addVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             this.adjancyList[vertex]=new Set()
+//         }
+//     }
 
-    addEdge(vertex1,vertex2){
-        if(!this.adjancyList[vertex1]){
-            this.addVertex(vertex1)
-        }
+//     addEdge(vertex1,vertex2){
+//         if(!this.adjancyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
 
-        if(!this.adjancyList[vertex2]){
-            this.addVertex(vertex2)
-        }
+//         if(!this.adjancyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
 
-        this.adjancyList[vertex1].add(vertex2)
-        this.adjancyList[vertex2].add(vertex1)
-    }
+//         this.adjancyList[vertex1].add(vertex2)
+//         this.adjancyList[vertex2].add(vertex1)
+//     }
 
-    hasEdge(vertex1,vertex2){
-        return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
-    }
+//     hasEdge(vertex1,vertex2){
+//         return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
+//     }
 
-    removeEdge(vertex1,vertex2){
-        if(!this.adjancyList[vertex1] && !this.adjancyList[vertex2]){
-            return "does not have vertex"
-        }
+//     removeEdge(vertex1,vertex2){
+//         if(!this.adjancyList[vertex1] && !this.adjancyList[vertex2]){
+//             return "does not have vertex"
+//         }
 
-        this.adjancyList[vertex1].delete(vertex2)
-        this.adjancyList[vertex2].delete(vertex1)
-    }
+//         this.adjancyList[vertex1].delete(vertex2)
+//         this.adjancyList[vertex2].delete(vertex1)
+//     }
 
-    removeVertex(vertex){
-        if(!this.adjancyList[vertex]){
-            return "vertex is invalid"
-        }
+//     removeVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             return "vertex is invalid"
+//         }
 
-        this.adjancyList[vertex].forEach(neighbor=>{
-            this.removeEdge(neighbor,vertex)
-        })
+//         this.adjancyList[vertex].forEach(neighbor=>{
+//             this.removeEdge(neighbor,vertex)
+//         })
 
-        delete this.adjancyList[vertex]
-    }
+//         delete this.adjancyList[vertex]
+//     }
 
-    display(){
-        for(let vertex in this.adjancyList){
-            console.log(vertex+"=>"+[...this.adjancyList[vertex]])
-        }
-    }
+//     display(){
+//         for(let vertex in this.adjancyList){
+//             console.log(vertex+"=>"+[...this.adjancyList[vertex]])
+//         }
+//     }
 
-    bfs(start){
-        let visitedNode=new Set()
-        let queue=[start]
-        visitedNode.add(start)
+//     bfs(start){
+//         let visitedNode=new Set()
+//         let queue=[start]
+//         visitedNode.add(start)
 
-        while(queue.length){
-            let vertex=queue.shift()
+//         while(queue.length){
+//             let vertex=queue.shift()
 
-            console.log(vertex)
+//             console.log(vertex)
 
-            this.adjancyList[vertex].forEach(neighbor=>{
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push(neighbor)
-                }
-            })
-        }
-    }
+//             this.adjancyList[vertex].forEach(neighbor=>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })
+//         }
+//     }
 
-    dfs(start,visitedNode=new Set()){
-        console.log(start)
-        visitedNode.add(start)
+//     dfs(start,visitedNode=new Set()){
+//         console.log(start)
+//         visitedNode.add(start)
 
-        this.adjancyList[start].forEach(neighbor=>{
-            if(!visitedNode.has(neighbor)){
-                this.dfs(neighbor,visitedNode)
-            }
-        })
-    }
+//         this.adjancyList[start].forEach(neighbor=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
 
-    bfsCycleDetection(start){
-        let visitedNode=new Set()
-        let queue=[{vertex:start, parent:null}]
-        visitedNode.add(start)
+//     bfsCycleDetection(start){
+//         let visitedNode=new Set()
+//         let queue=[{vertex:start, parent:null}]
+//         visitedNode.add(start)
 
-        while(queue.length){
-            const {vertex,parent}=queue.shift()
-            for(let neighbor of this.adjancyList[vertex]){
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push({vertex:neighbor,parent:vertex})
-                }
-                else if(neighbor != parent){
-                    console.log("we found cycle")
-                    return
-                }
-            }
+//         while(queue.length){
+//             const {vertex,parent}=queue.shift()
+//             for(let neighbor of this.adjancyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push({vertex:neighbor,parent:vertex})
+//                 }
+//                 else if(neighbor != parent){
+//                     console.log("we found cycle")
+//                     return
+//                 }
+//             }
 
-        }
-        console.log("we dont have any kind of cycle")
-    }
+//         }
+//         console.log("we dont have any kind of cycle")
+//     }
 
-    dfsCycleDetection(start,visitedNode=new Set(),parent=[]){
-        visitedNode.add(start)
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=[]){
+//         visitedNode.add(start)
 
-        for(let neighbor of this.adjancyList[start]){
-            if(!visitedNode.has(neighbor)){
-                if(this.dfs(neighbor,visitedNode,start)){
-                    return true
-                }
-            }
-            else if(neighbor != parent){
-                return true
-            }
-        }
-        return false
-    }
-}
+//         for(let neighbor of this.adjancyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfs(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }
+//             else if(neighbor != parent){
+//                 return true
+//             }
+//         }
+//         return false
+//     }
+// }
 
-const graph = new Graph();
-graph.addVertex("A");
-graph.addVertex("B");
-graph.addVertex("C");
-graph.addVertex("D")
-graph.addVertex("E")
-graph.addVertex("F")
-graph.addEdge("A","B");
-graph.addEdge("B","C");
-graph.addEdge("C","A");
-graph.addEdge("D","A")
+// const graph = new Graph();
+// graph.addVertex("A");
+// graph.addVertex("B");
+// graph.addVertex("C");
+// graph.addVertex("D")
+// graph.addVertex("E")
+// graph.addVertex("F")
+// graph.addEdge("A","B");
+// graph.addEdge("B","C");
+// graph.addEdge("C","A");
+// graph.addEdge("D","A")
+// // graph.display()
+
+// // console.log(graph.hasEdge("A","B"))
+
+// // graph.removeEdge("E","D")
+// // console.log("After removing edges")
+// // graph.display()
+
+// // graph.removeVertex("E")
+// // graph.removeVertex("A")
+// // console.log("After removing the removeVertex")
+// // graph.display()
+
+// // graph.bfs("A");
+// // graph.dfs("A");
+
+// graph.bfsCycleDetection("A")
+// console.log(graph.dfsCycleDetection("A"));
+
+
+// class Graph{
+//     constructor(){
+//         this.adjancyList={}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             this.adjancyList[vertex]=new Set()
+//         }
+//     }
+
+//     addEdge(vertex1,vertex2){
+//         this.adjancyList[vertex1].add(vertex2)
+//         this.adjancyList[vertex2].add(vertex1)
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         this.adjancyList[vertex1].delete(vertex2)
+//         this.adjancyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             return "it is not found"
+//         }
+
+//         for(let ajdancyVertex of this.adjancyList[vertex]){
+//             this.removeEdge(ajdancyVertex,vertex)
+//         }
+
+//         delete this.adjancyList[vertex]
+//     }
+
+//     display(){
+//         for(let vertex in this.adjancyList){
+//             console.log(vertex+"->"+[...this.adjancyList[vertex]])
+//         }
+//     }
+
+//     bfs(start){
+//         let visitedNode=new Set()
+//         let queue=[start]
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             const vertex=queue.shift()
+//             console.log(vertex)
+
+//             this.adjancyList[vertex].forEach(neighbor=>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })
+//         }
+//     }
+
+//     dfs(start,visitedNode=new Set()){
+//         console.log(start)
+//         visitedNode.add(start)
+
+//         this.adjancyList[start].forEach(neighbor=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+
+//     bfsCycleDetection(start){
+//         let visitedNode=new Set()
+
+//         let queue=[{vertex:start,parent:null}]
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let {vertex,parent}=queue.shift()
+
+//             if(this.adjancyList[vertex]){
+//                 for(let neighbor of this.adjancyList[vertex]){
+//                     if(!visitedNode.has(neighbor)){
+//                         visitedNode.add(neighbor)
+//                         queue.push({vertex:neighbor,parent:vertex})
+//                     }
+//                     else if(neighbor != parent){
+//                         console.log("cycle is detected")
+//                         return
+//                     }
+//                 }
+//             }
+//         }
+
+//         console.log("cycle is not detected")
+//     }
+
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+//         visitedNode.add(start)
+
+//         for(let neighbor of this.adjancyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }
+//             else if(neighbor != parent){
+//                 return true
+//             }
+//         }
+
+//         return false
+//     }
+
+
+// }
+
+// const graph = new Graph();
+// graph.addVertex("A");
+// graph.addVertex("B");
+// graph.addVertex("C");
+// graph.addVertex("D")
+// graph.addVertex("E")
+// graph.addVertex("F")
+// graph.addEdge("A","B");
+// graph.addEdge("B","C");
+// graph.addEdge("C","A");
+// graph.addEdge("D","E")
+// graph.display()
+
+// console.log(graph.hasEdge("A","B"))
+
+// graph.removeEdge("E","D")
+// console.log("After removing edges")
+// graph.display()
+
+// graph.removeVertex("E")
+// graph.removeVertex("A")
+// console.log("After removing the removeVertex")
+// graph.display()
+
+//graph.bfs("A");
+// graph.dfs("A");
+
+// graph.bfsCycleDetection("A")
+// console.log(graph.dfsCycleDetection("A"));
+
+
+// class Graph{
+//     constructor(){
+//         this.adjancyList={}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             this.adjancyList[vertex]=new Set()
+//         }
+//     }
+
+//     addEdge(vertex1,vertex2){
+//         if(!vertex1 && !vertex2){
+//             return "it is not found"
+//         }
+
+//         if(!this.adjancyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
+
+//         if(!this.adjancyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
+
+//         this.adjancyList[vertex1].add(vertex2)
+//         this.adjancyList[vertex2].add(vertex1)
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         if(!vertex1 && !vertex2){
+//             return "vertex is missing"
+//         }
+
+//         return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
+//     }
+
+//     display(){
+//         for(let vertex in this.adjancyList){
+//             console.log(vertex + "=>" + [...this.adjancyList[vertex]])
+//         }
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         if(!vertex1 &&!vertex2){
+//             return "vertex is missing"
+//         }
+
+//         this.adjancyList[vertex1].delete(vertex2) 
+//         this.adjancyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         if(!vertex){
+//             return "vertex is missing"
+//         }
+
+//         this.adjancyList[vertex].forEach(neighbor=>{
+//             this.removeEdge(neighbor,vertex)
+//         })
+
+//         delete this.adjancyList[vertex]
+//     }
+
+//     bfs(start){
+//         let visitedNode=new Set()
+//         let queue=[]
+//         queue.push(start)
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let vertex=queue.shift()
+//             console.log(vertex)
+//             this.adjancyList[vertex].forEach(neighbor=>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })
+//         }
+//     }
+
+//     dfs(start,visitedNode=new Set()){
+//         console.log(start)
+//         visitedNode.add(start)
+//         this.adjancyList[start].forEach(neighbor=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+
+//     bfsCycleDetection(start){
+//         let visitedNode=new Set()
+//         let queue=[{vertex:start,parent:null}]
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let {vertex,parent}=queue.shift()
+
+//             if(this.adjancyList[vertex]){
+//                 for(let neighbor of this.adjancyList[vertex]){
+//                     if(!visitedNode.has(neighbor)){
+//                         visitedNode.add(neighbor)
+//                         queue.push({vertex:neighbor,parent:vertex})
+//                     }
+//                     else if(neighbor != parent){
+//                         console.log("cycle found")
+//                         return
+//                     }
+//                 }
+//             }
+//         }
+//         console.log("cycle not found")
+//     }
+
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+//         visitedNode.add(start)
+
+//         for(let neighbor of this.adjancyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfs(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }
+//             else if(neighbor != parent){
+//                 return "cycle found"
+//             }
+//         }
+//         return "cycle not found"
+//     }
+// }
+
+// const graph = new Graph();
+// graph.addVertex("A");
+// graph.addVertex("B");
+// graph.addVertex("C");
+// graph.addVertex("D")
+// graph.addVertex("E")
+// graph.addVertex("F")
+// graph.addEdge("A","B");
+// graph.addEdge("B","C");
+// graph.addEdge("C","A");
+// graph.addEdge("D","E")
 // graph.display()
 
 // console.log(graph.hasEdge("A","B"))
@@ -4652,5 +4964,911 @@ graph.addEdge("D","A")
 // graph.bfs("A");
 // graph.dfs("A");
 
-graph.bfsCycleDetection("A")
-console.log(graph.dfsCycleDetection("A"));
+// graph.bfsCycleDetection("A")
+// console.log(graph.dfsCycleDetection("A"));
+
+
+// class Graph{
+//     constructor(){
+//         this.adjacencyList={}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             this.adjacencyList[vertex]=new Set()
+//         }
+//     }
+
+//     addEdge(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
+
+//         if(!this.adjacencyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
+
+//         this.adjacencyList[vertex1].add(vertex2)
+//         this.adjacencyList[vertex2].add(vertex1)
+//     }
+
+
+//     display(){
+//         for(let vertex in this.adjacencyList){
+//             console.log(vertex+"=>"+[...this.adjacencyList[vertex]])
+//         }
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         if(!vertex1 && !vertex2){
+//             return "vertex is not there"
+//         }
+
+//         return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         this.adjacencyList[vertex1].delete(vertex2)
+//         this.adjacencyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             return "like this vertex is not found"
+//         }
+
+//         this.adjacencyList[vertex].forEach(neighbor=>{
+//             this.removeEdge(neighbor,vertex)
+//         })
+
+//         delete this.adjacencyList[vertex]
+//     }
+
+//     bfs(start){
+//         let visitedNode=new Set()
+//         let queue=[]
+//         queue.push(start)
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let vertex=queue.shift()
+//             console.log(vertex)
+
+//             this.adjacencyList[vertex].forEach(neighbor =>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })
+//         }
+//     }
+
+//     dfs(start,visitedNode=new Set()){
+//         console.log(start)
+//         visitedNode.add(start)
+//         this.adjacencyList[start].forEach(neighbor=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+
+//     bfsCycleDetection(start){
+//         let visitedNode=new Set()
+//         let queue=[]
+//         queue.push({vertex:start,parent:null})
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let {vertex,parent}=queue.shift()
+
+//             for(let neighbor of this.adjacencyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push({vertex:neighbor,parent:vertex})
+//                 }
+//                 else if(neighbor != parent){
+//                     console.log("cycle is found")
+//                     return
+//                 }
+//             }
+//         }
+//         console.log("cycle not found")
+//     }
+
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+//         visitedNode.add(start)
+
+//         for(let neighbor of this.adjacencyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfs(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }
+//             else if(neighbor != parent){
+//                 return 'found'
+//             }
+//         }
+
+//         return "cycle not found"
+//     }
+// }
+
+// const graph = new Graph();
+// graph.addVertex("A");
+// graph.addVertex("B");
+// graph.addVertex("C");
+// graph.addVertex("D")
+// graph.addVertex("E")
+// graph.addVertex("F")
+// graph.addEdge("A","B");
+// graph.addEdge("B","C");
+// graph.addEdge("C","D");
+// graph.addEdge("D","E")
+// graph.display()
+
+//console.log(graph.hasEdge("A","B"))
+
+// graph.removeEdge("E","D")
+// console.log("After removing edges")
+// graph.display()
+
+// graph.removeVertex("E")
+// graph.removeVertex("A")
+// console.log("After removing the removeVertex")
+// graph.display()
+
+//graph.bfs("A");
+// graph.dfs("A");
+
+// graph.bfsCycleDetection("A")
+// graph.dfsCycleDetection("A")
+
+// class Node{
+//     constructor() {
+//         this.children={}
+//         this.isEndOfWord=false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+//         node.isEndOfWord=true
+//     }
+
+//     search(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+
+//         return node.isEndOfWord
+//     }
+
+//     startsWith(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "word is not matching"
+//             }
+//             node=node.children[char]
+//         }
+
+//         let list=[]
+
+//         this.collectWords(node,word,list)
+//         return list
+//     }
+
+//     collectWords(node,word,list){
+//         if(node.isEndOfWord){
+//             list.push(word)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWords(node.children[char],word+char,list)
+//         }
+//     }
+
+//     print(){
+//         let list=[]
+//         this.collectWords(this.root,"",list)
+//         console.log(list)
+//     }
+
+//     delete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                  return "no matching found"
+//             }
+//             node=node.children[char]
+//         }
+
+//         if(node.isEndOfWord){
+//             node.isEndOfWord=false
+//         }
+
+//         for(let i=word.length-1;i>=0;i--){
+//             let char=word[i]
+//             let parentNode=this.parentNode(word,i)
+
+//             if(Object.keys(node.children).length == 0 && !node.isEndOfWord){
+//                 delete parentNode.children[char]
+//             }
+
+//             if(parentNode.children[char]){
+//                 node=parentNode.children[char]
+//             }else{
+//                 break
+//             }
+//         }
+//     }
+
+//     parentNode(word,index){
+//         let node=this.root
+//         for(let i=0;i<index;i++){
+//             node=node.children[word[i]]
+//         }
+//         return node
+//     }
+// }
+
+// const t=new Trie()
+
+// t.insert("apple")
+// t.insert("app")
+// t.insert("banana")
+// t.insert("bat")
+// t.insert("batman")
+
+// console.log(t.search("apple"));  // true
+// console.log(t.search("app"));    // true
+// console.log(t.search("batman"));// true
+// console.log(t.search("ban")); 
+
+// console.log(t.startsWith("ba")); // true
+
+// console.log(t.autoComplete("ba")); // ["banana", "bat", "batman"]
+
+// t.print();  
+
+// t.delete("apple");
+
+// console.log("After Deletion:");
+// t.print(); 
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWord=false
+//     }
+// }
+
+// class suffixTrie{
+//     constructor(word){
+//         this.root=new Node()
+//         this.buildSuffix(word)
+//     }
+
+//     buildSuffix(word){
+//         for(let i=0;i<word.length;i++){
+//             this.insert(word.slice(i))
+//         }
+//     }
+
+//     insert(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+
+//             node=node.children[char]
+//         }
+//         node.isEndOfWord=true
+//     }
+
+//     search(word){
+//         let node=this.root
+        
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+
+//         return node.isEndOfWord
+//     }
+// }
+
+// const suffix = new suffixTrie("banana");
+
+// console.log(suffix.search("ana"));  // true  (because "ana" is a suffix of "banana")
+// console.log(suffix.search("anana"));  // true  (because "ban" is a suffix of "banana")
+// console.log(suffix.search("apple")); // false (because "apple" is not a suffix of "banana")
+
+
+// class Node{
+//     constructor() {
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+//         node.isEndOfWords=true
+//     }
+
+//     //countWords
+
+//     countWords(){
+//         let count=0
+
+//         let queue=[]
+//         queue.push(this.root)
+
+//         while(queue.length){
+//             let node=queue.shift()
+
+//             if(node.isEndOfWords){
+//                 count++
+//             }
+
+//             for(let char in node.children){
+//                 queue.push(node.children[char])
+//             }
+//         }
+//         return count
+//     }
+
+//     longestPrefix(word){
+//         let longestPrefix=""
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "word is not matching"
+//             }
+//             node=node.children[char]
+//             longestPrefix+=char
+//         }
+//         return longestPrefix
+//     }
+
+//     countPrefix(word){
+        
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "word is not matching"
+//             }
+//             node=node.children[char]
+//         }
+//         return this.count(node)
+//     }
+
+//     count(node){
+//         let count=0
+
+//         if(node.isEndOfWords){
+//             count++
+//         }
+
+//         for(let child in node.children){
+//             count+=this.count(node.children[child])
+//         }
+//         return count
+//     }
+// }
+
+// const t = new Trie();
+
+// // Insert words
+// t.insert("cat");
+// t.insert("car");
+// t.insert("bat");
+// t.insert("burger");
+// t.insert("batter");
+
+// console.log(t.countWords());         // Expected output: 5 (There are 5 words in the Trie)
+// console.log(t.longestPrefix("bu"));  // Expected output: "cat" (The longest valid prefix in the Trie)
+// console.log(t.countPrefix("b")); 
+
+
+// class Node{
+//     constructor() {
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+//         node.isEndOfWords=true
+//     }
+
+//     countWords(){
+//         let queue=[]
+//         queue.push(this.root)
+//         let c=0
+
+//         while(queue.length){
+//             let currentNode=queue.shift()
+
+//             if(currentNode.isEndOfWords){
+//                 c++
+//             }
+
+//             for(let char in currentNode.children){
+//                 queue.push(currentNode.children[char])
+//             }
+//         }
+//         return c
+//     }
+
+//     longestPrefix(word){
+//         let node=this.root
+//         let longestPrefix=""
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "longest prefix"
+//             }
+//             node=node.children[char]
+//             longestPrefix+=char
+//         }
+
+//         return longestPrefix
+//     }
+
+//     countPrefix(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no prefix count"
+//             }
+
+//             node=node.children[char]
+//         }
+
+//         return this.count(node)
+//     }
+
+//     count(node){
+//         let c=0
+//         if(node.isEndOfWords){
+//           c++
+//         }
+
+//         for(let char in node.children){
+//             c+=this.count(node.children[char])
+//         }
+//         return c
+//     }
+// }
+
+// const t = new Trie();
+
+// // Insert words
+// t.insert("cat");
+// t.insert("car");
+// t.insert("bat");
+// t.insert("burger");
+// t.insert("batter");
+
+// console.log(t.countWords());         // Expected output: 5 (There are 5 words in the Trie)
+// console.log(t.longestPrefix("bu"));  // Expected output: "cat" (The longest valid prefix in the Trie)
+// console.log(t.countPrefix("b")); 
+
+// class maxHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     leftChildIndex(index){
+//         return 2*index+1
+//     }
+
+//     rightChildIndex(index){
+//         return 2*index+2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.parentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.leftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.rightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.parentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.leftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.rightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp=this.heap[index1]
+//         this.heap[index1]=this.heap[index2]
+//         this.heap[index2]=temp
+//     }
+
+//     peek(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+//             this.swap(this.parentIndex(index),index)
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length==0){
+//             return "heap is empty"
+//         }
+
+//         let value=this.heap[0]
+
+//         this.heap[0]=this.heap[this.heap.length-1]
+
+//         this.heap.pop()
+
+//         this.heapifyDown(0)
+
+//         return value
+//     }
+
+//     heapifyDown(index){
+
+//         let largest
+
+//         while(this.hasLeftChild(index)){
+//             largest=this.leftChildIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest=this.rightChildIndex(index)
+//             }
+
+//             if(this.heap[index] >= this.heap[largest]){
+//                 break
+//             }
+//             else{
+//                 this.swap(index,largest)
+//             }
+//             index=largest
+//         }
+//     }
+
+//     heapSort(arr){
+//         const m=new maxHeap()
+
+//         for(let n of arr){
+//             m.insert(n)
+//         }
+
+//         let sortedArr=[]
+
+//         while(m.heap.length){
+//             sortedArr.push(m.remove())
+//         }
+
+//         return sortedArr.reverse()
+//     }
+
+//     findKthSmallest(arr,k){
+//         const m=new maxHeap()
+
+//         for(let n of arr){
+//             m.insert(n)
+//             if(m.heap.length > k){
+//                 m.remove()
+//             }
+//         }
+//         return m.peek()
+//     }
+// }
+
+// const heap = new maxHeap();
+
+// heap.insert(1);
+// heap.insert(12);
+// heap.insert(13);
+// heap.insert(14);
+// heap.insert(15);
+// heap.print()
+// console.log(heap.peek())
+// console.log(heap.findKthSmallest([1,9,10,4,5],3));
+// console.log(heap.heapSort([1,9,10,4,5]));
+
+
+// class minHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     leftChildIndex(index){
+//         return 2*index+1
+//     }
+
+//     rightChildIndex(index){
+//         return 2*index+2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.parentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.leftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.rightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.parentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.leftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.rightChildIndex(index) < this.heap.length
+//     }
+
+//     peek(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     swap(index1,index2){
+//         let temp=this.heap[index1]
+//         this.heap[index1]=this.heap[index2]
+//         this.heap[index2]=temp
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+//             this.swap(this.parentIndex(index),index)
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+
+//         let value=this.heap[0]
+
+//         this.heap[0]=this.heap[this.heap.length-1]
+
+//         this.heap.pop()
+
+//         this.heapifyDown(0)
+
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         let smallest
+
+//         while(this.hasLeftChild(index)){
+//             smallest=this.leftChildIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)){
+//                 smallest=this.rightChildIndex(index)
+//             }
+
+//             if(this.heap[index] <= this.heap[smallest]){
+//                 break
+//             }
+//             else{
+//                 this.swap(index,smallest)
+//             }
+//             index=smallest
+//         }
+//     }
+
+//     heapSort(arr){
+//         const m=new minHeap()
+
+//         for(let n of arr){
+//             m.insert(n)
+//         }
+
+//         let sortedArr=[]
+
+//         while(m.heap.length){
+//             sortedArr.push(m.remove())
+//         }
+//         return sortedArr
+//     }
+
+//     findKthLargest(arr,k){
+//         const m=new minHeap()
+
+//         for(let n of arr){
+//             m.insert(n)
+//             if(m.heap.length > k){
+//                 m.remove()
+//             }
+//         }
+//         return m.peek()
+//     }
+// }
+
+// const heap = new minHeap();
+
+// heap.insert(1);
+// heap.insert(12);
+// heap.insert(13);
+// heap.insert(14);
+// heap.insert(15);
+// heap.print()
+// console.log(heap.peek())
+// console.log(heap.findKthLargest([1,9,10,4,5],3));
+// console.log(heap.heapSort([1,9,10,4,5]));
+
+
+// function topKFrequentElement(arr,k){
+//     let freqMap=new Map()
+
+//     for(let n of arr){
+//         freqMap.set(n,(freqMap.get(n)||0)+1)
+//     }
+
+//     let result=[]
+
+//     for(let [num,freq] of freqMap.entries()){
+//         if(freq==k){
+//             result.push(num)
+//         }
+//     }
+//     return result
+// }
+// const nums = [1, 1, 1, 2, 2, 3];
+// const k = 3;
+// console.log(topKFrequentElement(nums, k)); 
+
+// function heapify(arr,n,i){
+//     let largest=i
+//     let left=2*i+1
+//     let right=2*i+2
+
+//     if(left < n && arr[left] > arr[largest]){
+//         largest=left
+//     }
+
+//     if(right < n && arr[right] > arr[largest]){
+//         largest=right
+//     }
+
+//     if(largest != i){
+//         [arr[i],arr[largest]]=[arr[largest],arr[i]]
+//         heapify(arr,n,largest)
+//     }
+// }
+
+
+
+
+// function heapSort(arr){
+//     let n=arr.length
+
+//     for(let i=Math.floor(n/2)-1;i>=0;i--){
+//         heapify(arr,n,i)
+//     }
+
+//     for(let i=n-1;i>0;i--){
+//         [arr[0],arr[i]]=[arr[i],arr[0]]
+//         heapify(arr,i,0)
+//     }
+// }
+
+// const arr = [10, 20, 15, 30, 5];
+// console.log("Original Array:", arr);
+// heapSort(arr);
+// console.log("Sorted Array:", arr);
