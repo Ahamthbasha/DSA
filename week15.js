@@ -2312,417 +2312,600 @@
 // console.log("Sorted Array:", arr);
 
 
-class Node{
-    constructor(value){
-        this.value=value
-        this.left=null
-        this.right=null
-    }
-}
-
-class bst{
-    constructor() {
-        this.root=null
-    }
-
-    isEmpty(){
-        return this.root == null
-    }
-
-    insert(value){
-        const node=new Node(value)
-        if(this.isEmpty()){
-            this.root=node
-        }else{
-            this.insertNode(this.root,node)
-        }
-    }
-
-    insertNode(root,node){
-        if(node.value < root.value){
-            if(root.left == null){
-                root.left=node
-            }else{
-                this.insertNode(root.left,node)
-            }
-        }else{
-            if(root.right == null){
-                root.right=node
-            }else{
-                this.insertNode(root.right,node)
-            }
-        }
-    }
-
-    search(root,value){
-        if(!root){
-            return false
-        }
-        else if(root.value == value){
-            return true
-        }
-        else if(value < root.value){
-            return this.search(root.left,value)
-        }
-        else{
-            return this.search(root.right,value)
-        }
-    }
-
-    preOrder(root){
-        if(root){
-            console.log(root.value)
-            this.preOrder(root.left)
-            this.preOrder(root.right)
-        }
-    }
-
-    inOrder(root){
-        if(root){
-            this.inOrder(root.left)
-            console.log(root.value)
-            this.inOrder(root.right)
-        }
-    }
-
-    postOrder(root){
-        if(root){
-            this.postOrder(root.left)
-            this.postOrder(root.right)
-            console.log(root.value)
-        }
-    }
-
-    levelOrder(){
-        let queue=[]
-        queue.push(this.root)
-
-        while(queue.length){
-            let cur=queue.shift()
-
-            if(cur){
-                console.log(cur.value)
-            }
-
-            if(cur.left){
-                queue.push(cur.left)            
-            }
-            if(cur.right){
-                queue.push(cur.right)
-            }
-        }
-    }
-
-    min(root){
-        if(!root){
-            return "no root"
-        }
-
-        while(root.left){
-            root=root.left
-        }
-        return root.value
-    }
-
-    max(root){
-        if(!root){
-            return "no root"
-        }
-
-        while(root.right){
-            root=root.right
-        }
-
-        return root.value
-    }
-
-    delete(value){
-        this.root=this.deleteNode(this.root,value)
-    }
-
-    deleteNode(root,value){
-        if(!root){
-            return null
-        }
-
-        if(value < root.value){
-            root.left=this.deleteNode(root.left,value)
-        }
-        else if(value > root.value){
-            root.right=this.deleteNode(root.right,value)
-        }
-        else{
-            if(!root.left && !root.right){
-                return null
-            }
-
-            if(!root.right){
-                return root.left
-            }
-
-            if(!root.left){
-                return root.right
-            }
-
-            root.value=this.min(root.right)
-            root.right=this.deleteNode(root.right,root.value)
-        }
-        return root
-    }
-
-    isBst(root,min=null,max=null){
-        if(!root){
-            return true
-        }
-
-        if((min != null && root.value < min) && (max !=null && root.value > max)){
-            return false
-        }
-
-        return this.isBst(root.left,min,root.value) && this.isBst(root.right,root.value,max)
-    }
-
-    isIdentical(tree1,tree2){
-        if(!tree1 && !tree2){
-            return true
-        }
-
-        if(!tree1 || !tree2){
-            return false
-        }
-
-        return tree1.value == tree2.value && this.isIdentical(tree1.left,tree2.left) && this.isIdentical(tree1.right,tree2.right)
-    }
-
-    findHeight(root){
-        let queue=[]
-        queue.push(root)
-        let height=0
-
-        while(queue.length){
-            let nodeCount=queue.length
-            height++
-
-            while(nodeCount > 0){
-                let cur=queue.shift()
-
-                if(cur.left){
-                    queue.push(cur.left)
-                }
-
-                if(cur.right){
-                    queue.push(cur.right)
-                }
-                nodeCount--
-            }
-        }
-        return height
-    }
-
-    inOrderTraversal(root,result=[]){
-        if(root){
-            this.inOrderTraversal(root.left,result)
-            result.push(root.value)
-            this.inOrderTraversal(root.right,result)
-        }
-        return result
-    }
-
-    findKthSmallest(root,k){
-        let result=this.inOrderTraversal(root)
-        return result[k-1]||null
-    }
-
-    findKthLargest(root,k){
-        let result=this.inOrderTraversal(root)
-        return result[result.length-k]||null
-    }
-
-    successor(root,target){
-        let result=this.inOrderTraversal(root)
-        let successor=null
-        for(let i=0;i<result.length;i++){
-            if(result[i]==target){
-                if(i+1 < result.length){
-                    successor=result[i+1]
-                }
-                break
-            }
-        }
-        return successor
-    }
-
-    predecessor(root,target){
-        let result=this.inOrderTraversal(root)
-        let predecessor=null
-        for(let i=0;i<result.length;i++){
-            if(result[i]==target){
-                if(i-1 >= 0){
-                    predecessor=result[i-1]
-                }
-                break
-            }
-        }
-        return predecessor
-    }
-
-    closestValue(root,target){
-        let result=this.inOrderTraversal(root)
-        let closest=null
-        for(let i=0;i<result.length;i++){
-            if(result[i]>=target){
-                closest=result[i]
-                break
-            }
-        }
-        return closest
-    }
-
-    removeDuplicates(root){
-        let unique=new Set()
-
-        function inOrder(root){
-            if(root){
-                inOrder(root.left)
-                unique.add(root.value)
-                inOrder(root.right)
-            }
-        }
-        inOrder(root)
-        this.root=null
-
-        unique.forEach(values=>{
-            this.insert(values)
-        })
-    }
-
-    isPrime(num){
-        if(num<=1){
-            return false
-        }
-
-        for(let i=2;i<=Math.sqrt(num);i++){
-            if(num % i == 0){
-                return false
-            }
-        }
-        return true
-    }
-
-    findPrime(root,result=[]){
-        if(root){
-            this.findPrime(root.left,result)
-            if(this.isPrime(root.value)){
-                result.push(root.value)
-            }
-            this.findPrime(root.right,result)
-        }
-        return result
-    }
-
-    findParent(root,target){
-        if(!root){
-            return false
-        }
-
-        let parent=null
-
-        function inOrder(root){
-            if(root){
-                inOrder(root.left)
-
-            if(root.left && root.left.value == target){
-                parent=root
-                return
-            }
-
-            if(root.right && root.right.value == target){
-                parent=root
-                return
-            }
-
-            inOrder(root.right)
-            }
-        }
-        inOrder(root)
-        return parent
-    }
-
-    findChildren(root,target){
-        if(!root){
-            return false
-        }
-        else if(root.value == target){
-            const children={
-                leftChild:root.left?root.left.value:null,
-                rightChild:root.right?root.right.value:null
-            }
-            return children
-        }
-
-        else if(target < root.value){
-            return this.findChildren(root.left,target)
-        }
-        else{
-            return this.findChildren(root.right,target)
-        }
-    }
-
-    findSibling(root,target){
-        if(!root){
-            return false
-        }
-
-        let sibling=null
-
-        function inOrder(root){
-            if(root){
-                inOrder(root.left)
-
-            if(root.left && root.left.value==target){
-                sibling=root.right.value
-            }
-
-            if(root.right && root.right.value == target){
-                sibling=root.left.value
-            }
-
-            inOrder(root.right)
-            }
-        }
-        inOrder(root)
-        return sibling
-    }
-
-    findLeafNode(root,result=[]){
-        if(!root){
-            return false
-        }
-
-        if(root){
-            if(!root.left && !root.right){
-                result.push(root.value)
-            }
-            this.findLeafNode(root.left,result)
-            this.findLeafNode(root.right,result)
-        }
-        return result
-
-    }
-
-
-}
-
-
-let b = new bst()
-// let b1=new bst()
-b.insert(10);
-b.insert(5);
-b.insert(15);
-b.insert(3);
-b.insert(7);
-b.insert(12);
-b.insert(18);
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.left=null
+//         this.right=null
+//     }
+// }
+
+// class bst{
+//     constructor() {
+//         this.root=null
+//     }
+
+//     isEmpty(){
+//         return this.root == null
+//     }
+
+//     insert(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.root=node
+//         }else{
+//             this.insertNode(this.root,node)
+//         }
+//     }
+
+//     insertNode(root,node){
+//         if(node.value < root.value){
+//             if(root.left == null){
+//                 root.left=node
+//             }else{
+//                 this.insertNode(root.left,node)
+//             }
+//         }else{
+//             if(root.right == null){
+//                 root.right=node
+//             }else{
+//                 this.insertNode(root.right,node)
+//             }
+//         }
+//     }
+
+//     search(root,value){
+//         if(!root){
+//             return false
+//         }
+//         else if(root.value == value){
+//             return true
+//         }
+//         else if(value < root.value){
+//             return this.search(root.left,value)
+//         }
+//         else{
+//             return this.search(root.right,value)
+//         }
+//     }
+
+//     preOrder(root){
+//         if(root){
+//             console.log(root.value)
+//             this.preOrder(root.left)
+//             this.preOrder(root.right)
+//         }
+//     }
+
+//     inOrder(root){
+//         if(root){
+//             this.inOrder(root.left)
+//             console.log(root.value)
+//             this.inOrder(root.right)
+//         }
+//     }
+
+//     postOrder(root){
+//         if(root){
+//             this.postOrder(root.left)
+//             this.postOrder(root.right)
+//             console.log(root.value)
+//         }
+//     }
+
+//     levelOrder(){
+//         let queue=[]
+//         queue.push(this.root)
+
+//         while(queue.length){
+//             let cur=queue.shift()
+
+//             if(cur){
+//                 console.log(cur.value)
+//             }
+
+//             if(cur.left){
+//                 queue.push(cur.left)            
+//             }
+//             if(cur.right){
+//                 queue.push(cur.right)
+//             }
+//         }
+//     }
+
+//     min(root){
+//         if(!root){
+//             return "no root"
+//         }
+
+//         while(root.left){
+//             root=root.left
+//         }
+//         return root.value
+//     }
+
+//     max(root){
+//         if(!root){
+//             return "no root"
+//         }
+
+//         while(root.right){
+//             root=root.right
+//         }
+
+//         return root.value
+//     }
+
+//     delete(value){
+//         this.root=this.deleteNode(this.root,value)
+//     }
+
+//     deleteNode(root,value){
+//         if(!root){
+//             return null
+//         }
+
+//         if(value < root.value){
+//             root.left=this.deleteNode(root.left,value)
+//         }
+//         else if(value > root.value){
+//             root.right=this.deleteNode(root.right,value)
+//         }
+//         else{
+//             if(!root.left && !root.right){
+//                 return null
+//             }
+
+//             if(!root.right){
+//                 return root.left
+//             }
+
+//             if(!root.left){
+//                 return root.right
+//             }
+
+//             root.value=this.min(root.right)
+//             root.right=this.deleteNode(root.right,root.value)
+//         }
+//         return root
+//     }
+
+//     isBst(root,min=null,max=null){
+//         if(!root){
+//             return true
+//         }
+
+//         if((min != null && root.value < min) && (max !=null && root.value > max)){
+//             return false
+//         }
+
+//         return this.isBst(root.left,min,root.value) && this.isBst(root.right,root.value,max)
+//     }
+
+//     isIdentical(tree1,tree2){
+//         if(!tree1 && !tree2){
+//             return true
+//         }
+
+//         if(!tree1 || !tree2){
+//             return false
+//         }
+
+//         return tree1.value == tree2.value && this.isIdentical(tree1.left,tree2.left) && this.isIdentical(tree1.right,tree2.right)
+//     }
+
+//     findHeight(root){
+//         let queue=[]
+//         queue.push(root)
+//         let height=0
+
+//         while(queue.length){
+//             let nodeCount=queue.length
+//             height++
+
+//             while(nodeCount > 0){
+//                 let cur=queue.shift()
+
+//                 if(cur.left){
+//                     queue.push(cur.left)
+//                 }
+
+//                 if(cur.right){
+//                     queue.push(cur.right)
+//                 }
+//                 nodeCount--
+//             }
+//         }
+//         return height
+//     }
+
+//     inOrderTraversal(root,result=[]){
+//         if(root){
+//             this.inOrderTraversal(root.left,result)
+//             result.push(root.value)
+//             this.inOrderTraversal(root.right,result)
+//         }
+//         return result
+//     }
+
+//     findKthSmallest(root,k){
+//         let result=this.inOrderTraversal(root)
+//         return result[k-1]||null
+//     }
+
+//     findKthLargest(root,k){
+//         let result=this.inOrderTraversal(root)
+//         return result[result.length-k]||null
+//     }
+
+//     successor(root,target){
+//         let result=this.inOrderTraversal(root)
+//         let successor=null
+//         for(let i=0;i<result.length;i++){
+//             if(result[i]==target){
+//                 if(i+1 < result.length){
+//                     successor=result[i+1]
+//                 }
+//                 break
+//             }
+//         }
+//         return successor
+//     }
+
+//     predecessor(root,target){
+//         let result=this.inOrderTraversal(root)
+//         let predecessor=null
+//         for(let i=0;i<result.length;i++){
+//             if(result[i]==target){
+//                 if(i-1 >= 0){
+//                     predecessor=result[i-1]
+//                 }
+//                 break
+//             }
+//         }
+//         return predecessor
+//     }
+
+//     closestValue(root,target){
+//         let result=this.inOrderTraversal(root)
+//         let closest=null
+//         for(let i=0;i<result.length;i++){
+//             if(result[i]>=target){
+//                 closest=result[i]
+//                 break
+//             }
+//         }
+//         return closest
+//     }
+
+//     removeDuplicates(root){
+//         let unique=new Set()
+
+//         function inOrder(root){
+//             if(root){
+//                 inOrder(root.left)
+//                 unique.add(root.value)
+//                 inOrder(root.right)
+//             }
+//         }
+//         inOrder(root)
+//         this.root=null
+
+//         unique.forEach(values=>{
+//             this.insert(values)
+//         })
+//     }
+
+//     isPrime(num){
+//         if(num<=1){
+//             return false
+//         }
+
+//         for(let i=2;i<=Math.sqrt(num);i++){
+//             if(num % i == 0){
+//                 return false
+//             }
+//         }
+//         return true
+//     }
+
+//     findPrime(root,result=[]){
+//         if(root){
+//             this.findPrime(root.left,result)
+//             if(this.isPrime(root.value)){
+//                 result.push(root.value)
+//             }
+//             this.findPrime(root.right,result)
+//         }
+//         return result
+//     }
+
+//     findParent(root,target){
+//         if(!root){
+//             return false
+//         }
+
+//         let parent=null
+
+//         function inOrder(root){
+//             if(root){
+//                 inOrder(root.left)
+
+//             if(root.left && root.left.value == target){
+//                 parent=root
+//                 return
+//             }
+
+//             if(root.right && root.right.value == target){
+//                 parent=root
+//                 return
+//             }
+
+//             inOrder(root.right)
+//             }
+//         }
+//         inOrder(root)
+//         return parent
+//     }
+
+//     findChildren(root,target){
+//         if(!root){
+//             return false
+//         }
+//         else if(root.value == target){
+//             const children={
+//                 leftChild:root.left?root.left.value:null,
+//                 rightChild:root.right?root.right.value:null
+//             }
+//             return children
+//         }
+
+//         else if(target < root.value){
+//             return this.findChildren(root.left,target)
+//         }
+//         else{
+//             return this.findChildren(root.right,target)
+//         }
+//     }
+
+//     findSibling(root,target){
+//         if(!root){
+//             return false
+//         }
+
+//         let sibling=null
+
+//         function inOrder(root){
+//             if(root){
+//                 inOrder(root.left)
+
+//             if(root.left && root.left.value==target){
+//                 sibling=root.right.value
+//             }
+
+//             if(root.right && root.right.value == target){
+//                 sibling=root.left.value
+//             }
+
+//             inOrder(root.right)
+//             }
+//         }
+//         inOrder(root)
+//         return sibling
+//     }
+
+//     findLeafNode(root,result=[]){
+//         if(!root){
+//             return false
+//         }
+
+//         if(root){
+//             if(!root.left && !root.right){
+//                 result.push(root.value)
+//             }
+//             this.findLeafNode(root.left,result)
+//             this.findLeafNode(root.right,result)
+//         }
+//         return result
+
+//     }
+
+//     findAncestor(root,target,ancestor=[]){
+//         if(!root){
+//             return null
+//         }
+
+//         if(root.value==target){
+//             return ancestor
+//         }
+
+//         ancestor.push(root.value)
+
+//         if(target<root.value){
+//             return this.findAncestor(root.left,target,ancestor)
+//         }else{
+//             return this.findAncestor(root.right,target,ancestor)
+//         }
+//     }
+
+//     findDescendant(root,target,descendant=[]){
+//         if(!root){
+//             return target
+//         }
+
+//         if(root.value==target){
+//             this.collectDescendant(root,descendant)
+//             return descendant
+//         }
+
+//         if(target < root.value){
+//             return this.findDescendant(root.left,target,descendant)
+//         }
+//         else{
+//             return this.findDescendant(root.right,target,descendant)
+//         }
+//     }
+
+//     collectDescendant(root,descendant){
+//         if(root){
+//             descendant.push(root.value)
+//             this.collectDescendant(root.left,descendant)
+//             this.collectDescendant(root.right,descendant)
+//         }
+//     }
+
+//     degree(root,target){
+//         if(!root){
+//             return null
+//         }
+
+//         let count=0
+
+//         if(root.value==target){
+//             if(root.left) count++
+//             if(root.right) count++
+//             return count
+//         }
+//         else if(target < root.value){
+//             return this.degree(root.left,target)
+//         }
+//         else{
+//             return this.degree(root.right,target)
+//         }
+//     }
+
+//     depth(root,target){
+//         if(!root){
+//             return null
+//         }
+
+//         let depth=0
+
+//         while(root){
+//             if(target < root.value){
+//                 root=root.left
+//                 depth++
+//             }
+//             else if(target > root.value){
+//                 root=root.right
+//                 depth++
+//             }
+//             else{
+//                 return depth
+//             }
+//         }
+//     }
+
+//     findDistance(root,target){
+//         if(!root){
+//             return null
+//         }
+//         let distance=0
+
+//         while(root){
+//             if(target < root.value){
+//                 root=root.left
+//                 distance++
+//             }
+
+//             else if(target > root.value){
+//                 root=root.right
+//                 distance++
+//             }
+
+//             else{
+//                 break
+//             }
+//         }
+//         return distance
+//     }
+
+//     findLCA(root,n1,n2){
+//         if(!root){
+//             return null
+//         }
+
+//         while(root){
+//             if(n1 < root.value && n2 < root.value){
+//                 root=root.left
+//             }
+
+//             else if(n1 > root.value && n2 > root.value){
+//                 root=root.right
+//             }
+
+//             else{
+//                 return root
+//             }
+//         }
+//     }
+
+//     path(root,target){
+//         if(!root){
+//             return null
+//         }
+
+//         let path=[]
+
+//         while(root){
+//             path.push(root.value)
+//             if(target < root.value){
+//                 root=root.left
+//             }
+
+//             else if(target > root.value){
+//                 root=root.right
+//             }
+
+//             else{
+//                 return path
+//             }
+//         }
+//     }
+
+//     findPathBetweeenTwoNodes(n1,n2){
+//         let LCA=this.findLCA(this.root,n1,n2)
+
+//         if(!LCA){
+//             return null
+//         }
+
+//         let path1=this.path(LCA,n1)
+//         let path2=this.path(LCA,n2)
+
+//         return [...path1.reverse(),...path2.slice(1)]
+//     }
+
+//     findDistanceBetweenTwoNodes(n1,n2){
+//         let LCA=this.findLCA(this.root,n1,n2)
+
+//         if(!LCA){
+//             return null
+//         }
+
+//         let distance1=this.findDistance(LCA,n1)
+//         let distance2=this.findDistance(LCA,n2)
+
+//         return distance1+distance2
+//     }
+
+
+
+
+
+
+// }
+
+
+// let b = new bst()
+// // let b1=new bst()
+// b.insert(10);
+// b.insert(5);
+// b.insert(15);
+// b.insert(3);
+// b.insert(7);
+// b.insert(12);
+// b.insert(18);
 
 
 // b1.insert(10);
@@ -2818,7 +3001,7 @@ b.insert(18);
 
 //find leaf node
 
-console.log(b.findLeafNode(b.root))
+// console.log(b.findLeafNode(b.root))
 
 //findAncestor:parent parent
 
@@ -2830,12 +3013,12 @@ console.log(b.findLeafNode(b.root))
 
 //findSiblings
 
-console.log(b.findSibling(b.root,5))
+// console.log(b.findSibling(b.root,5))
 
 
 //findDegree:No of childrens for a node
 
-// console.log(b.degree(b.root,10))
+// console.log(b.degree(b.root,5))
 
 //findDepth:Edges from top of the root node to 7
 // console.log(b.depth(b.root,5))
@@ -2843,3 +3026,1631 @@ console.log(b.findSibling(b.root,5))
 // console.log("find path between 7 to 18",b.findPathBetweeenTwoNodes(7,18))
 
 // console.log("find distance between 7 to 18",b.findDistanceBetweenTwoNodes(7,18))
+
+
+//max Heap
+
+// class maxHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     leftChildIndex(index){
+//         return 2*index+1
+//     }
+
+//     rightChildIndex(index){
+//         return 2*index+2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.parentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.leftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.rightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.parentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.leftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.rightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp=this.heap[index1]
+//         this.heap[index1]=this.heap[index2]
+//         this.heap[index2]=temp
+//     }
+
+//     peek(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+//         return this.heap[0]
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+//             this.swap(this.parentIndex(index),index)
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length==0){
+//             return "heap is empty"
+//         }
+
+//         let value=this.heap[0]
+//         this.heap[0]=this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown(0)
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         while(this.hasLeftChild(index)){
+//             let largest=this.leftChildIndex(index)
+//             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest=this.rightChildIndex(index)
+//             }
+
+//             if(this.heap[index] >= this.heap[largest]){
+//                 break
+//             }
+//             else{
+//                 this.swap(index,largest)
+//             }
+//             index=largest
+//         }
+//     }
+
+//     heapSort(arr){
+//         let m=new maxHeap()
+
+//         for(let num of arr){
+//             m.insert(num)
+//         }
+
+//         let sortedArr=[]
+
+//         while(m.heap.length){
+//             sortedArr.push(m.remove())
+//         }
+
+//         return sortedArr.reverse()
+//     }
+
+//     findKthSmallest(arr,k){
+//         const m=new maxHeap()
+
+//         for(let num of arr){
+//             m.insert(num)
+//             if(m.heap.length > k){
+//                 m.remove()
+//             }
+//         }
+//         return m.peek()
+//     }
+
+// }
+
+//   const heap = new maxHeap();
+
+// // Test addNewElement and peek
+// heap.insert(10);
+// heap.insert(20);
+// heap.insert(15);
+// heap.insert(30);
+// heap.insert(5);
+
+// console.log('Heap after insertions:', heap.heap); // Max Heap should be [30, 20, 15, 10, 5]
+// console.log('Peek (Max element):', heap.peek()); // Should return 30
+
+// // Test remove
+// console.log('Removed element (root):', heap.remove()); // Should remove 30 (root)
+// console.log('Heap after removal:', heap.heap); // New heap should be [20, 10, 15, 5]
+
+// // Test heapSort
+// const unsortedArray = [10, 20, 15, 30, 5];
+// const sortedArray = heap.heapSort(unsortedArray);
+// console.log('Sorted Array:', sortedArray); // Should return [5, 10, 15, 20, 30]
+
+// // Test findKthSmallest (Find 3rd smallest)
+// const nums = [10, 20, 15, 30, 5];
+// const kthSmallest = heap.findKthSmallest(nums, 3);
+// console.log('3rd Smallest Element:', kthSmallest); // Should return 15
+
+// class minHeap{
+//     constructor(){
+//         this.heap=[]
+//     }
+    
+//     parentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     leftChildIndex(index){
+//         return 2*index+1
+//     }
+
+//     rightChildIndex(index){
+//         return 2*index+2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.parentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.leftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.rightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.parentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.leftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.rightChildIndex(index) < this.heap.length
+//     }
+
+//     peek(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+//         return this.heap[0]
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     swap(index1,index2){
+//         let temp=this.heap[index1]
+//         this.heap[index1]=this.heap[index2]
+//         this.heap[index2]=temp
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp(this.heap.length-1)
+//     }
+
+//     heapifyUp(index){
+//         while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+//             this.swap(this.parentIndex(index),index)
+//             index=this.parentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.heap.length == 0){
+//             return "heap is empty"
+//         }
+
+//         let value=this.heap[0]
+//         this.heap[0]=this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown(0)
+//         return value
+//     }
+
+//     heapifyDown(index){
+//         while(this.hasLeftChild(index)){
+//             let smallest=this.leftChildIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)){
+//                 smallest=this.rightChildIndex(index)
+//             }
+
+//             if(this.heap[index] <= this.heap[smallest]){
+//                 break
+//             }
+//             else{
+//                 this.swap(index,smallest)
+//             }
+//             index=smallest
+//         }
+//     }
+
+//     heapSort(arr){
+//         const m=new minHeap()
+
+//         for(let n of arr){
+//             m.insert(n)
+//         }
+
+//         let sortedArr=[]
+
+//         while(m.heap.length){
+//             sortedArr.push(m.remove())
+//         }
+//         return sortedArr
+//     }
+
+//     findKthLargest(arr,k){
+//         const m=new minHeap()
+
+//         for(let n of arr){
+//             m.insert(n)
+//             if(m.heap.length > k){
+//                 m.remove()
+//             }
+//         }
+
+//         return m.peek()
+//     }
+// }
+
+
+// const heap = new minHeap();
+
+// heap.insert(10);
+// heap.insert(20);
+// heap.insert(15);
+// heap.insert(30);
+// heap.insert(5);
+
+// console.log('Heap after insertions:', heap.heap);  // Should print the heap structure.
+// console.log('Peek (Min element):', heap.peek());  // Should print the min element (5)
+
+// console.log('Removed element (root):', heap.remove());  // Should remove 5 (root)
+// console.log('Heap after removal:', heap.heap);  // Should print the new heap.
+
+// const unsortedArray = [10, 20, 15, 30, 5];
+// const sortedArray = heap.heapSort(unsortedArray);
+// console.log('Sorted Array:', sortedArray);  // Should return [5, 10, 15, 20, 30]
+
+// const nums = [10, 20, 15, 30, 5];
+// const kthLargest = heap.findKthLargest(nums, 1);  // Find 3rd largest element
+// console.log('3rd Largest Element:', kthLargest);  // Should return 15
+
+
+// function topKFrequentElement(arr,k){
+//     let freqMap=new Map()
+
+//     for(let num of arr){
+//         freqMap.set(num,(freqMap.get(num)||0)+1)
+//     }
+
+//     let result=[]
+
+//     for(let [num, freq] of freqMap.entries()){
+//         if(freq==k){
+//             result.push(num)
+//         }
+//     }
+//     return result
+// }
+
+// const nums = [1, 1, 1, 2, 2, 3];
+// const k = 1;
+// console.log(topKFrequentElement(nums, k)); 
+
+// function heapify(arr,n,i){
+//     let largest=i
+//     let left=2*i+1
+//     let right=2*i+2
+
+//     if(left <n && arr[left] > arr[largest]){
+//         largest=left
+//     }
+
+//     if(right < n && arr[right] > arr[largest]){
+//         largest=right
+//     }
+
+//     if(largest !== i){
+//         [arr[i],arr[largest]]=[arr[largest],arr[i]]
+//         heapify(arr,n,largest)
+//     }
+// }
+
+// function heapSort(arr){
+//     let n=arr.length
+
+//     for(let i=Math.floor((n/2)-1);i>=0;i--){
+//         heapify(arr,n,i)
+//     }
+
+//     for(let i=n-1;i>0;i--){
+//         [arr[0],arr[i]]=[arr[i],arr[0]]
+//         heapify(arr,i,0)
+//     }
+// }
+
+// const arr = [10, 20, 15, 30, 5];
+// console.log("Original Array:", arr);
+// heapSort(arr);
+// console.log("Sorted Array:", arr);
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWord=false
+//     }
+// }
+
+// class trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+//         node.isEndOfWord=true
+//     }
+
+//     search(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+
+//         return node.isEndOfWord
+//     }
+
+//     startWith(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                  return false
+//             }
+//             node=node.children[char]
+//         }
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no words matching"
+//             }
+
+//             node=node.children[char]
+//         }
+
+//         let list=[]
+
+//         this.collectWords(node,word,list)
+//         return list
+//     }
+
+//     collectWords(root,word,list){
+//         if(root.isEndOfWord){
+//             list.push(word)
+//         }
+
+//         for(let char in root.children){
+//             this.collectWords(root.children[char],word+char,list)
+//         }
+//     }
+
+//     print(){
+//         let list=[]
+//         this.collectWords(this.root,"",list)
+//         console.log(list)
+//     }
+// }
+
+
+// const t=new trie()
+
+// t.insert("apple")
+// t.insert("app")
+// t.insert("banana")
+// t.insert("bat")
+// t.insert("batman")
+
+// console.log(t.search("apple"));  // true
+// console.log(t.search("app"));    // true
+// console.log(t.search("batman"));// true
+// console.log(t.search("ban")); 
+
+// console.log(t.startWith("ba")); // true
+
+// console.log(t.autoComplete("ba")); // ["banana", "bat", "batman"]
+
+// t.print();  
+
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+
+//         node.isEndOfWords=true
+//     }
+
+//     search(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return node.isEndOfWords
+//     }
+
+//     startsWith(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no matching"
+//             }
+//             node=node.children[char]
+//         }
+
+//         let list=[]
+
+//         this.collectWords(node,word,list)
+//         return list
+//     }
+
+//     collectWords(node,word,list){
+//         if(node.isEndOfWords){
+//             list.push(word)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWords(node.children[char],word+char,list)
+//         }
+//     }
+
+//     print(){
+//         let list=[]
+//         this.collectWords(this.root,'',list)
+//         console.log(list)
+//     }
+
+//     delete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "there is no matching"
+//             }
+//             node=node.children[char]
+//         }
+
+//         if(node.isEndOfWords){
+//             node.isEndOfWords=false
+//         }
+
+//         for(let i=word.length-1;i>=0;i--){
+//             let char=word[i]
+//             let parentNode=this.getParent(word,i)
+
+//             if(Object.entries(node.children).length == 0 && !node.isEndOfWords){
+//                 delete parentNode.children[char]
+//             }
+//             node=parentNode.children[char]
+//         }
+//     }
+
+//     getParent(word,index){
+//         let node=this.root
+//         for(let i=0;i<index;i++){
+//             node=node.children[word[i]]
+//         }
+//         return node
+//     }
+// }
+
+// const t=new trie()
+
+// t.insert("apple")
+// t.insert("app")
+// t.insert("banana")
+// t.insert("bat")
+// t.insert("batman")
+
+// console.log(t.search("apple"));  // true
+// console.log(t.search("app"));    // true
+// console.log(t.search("batman"));// true
+// console.log(t.search("ban")); 
+
+// console.log(t.startsWith("ba")); // true
+
+// console.log(t.autoComplete("ba")); // ["banana", "bat", "batman"]
+
+// t.print();  
+
+// t.delete("app");
+
+// console.log("After Deletion:");
+// t.print(); 
+
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+
+//         for(const char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+
+//         node.isEndOfWords=true
+//     }
+
+//     search(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return node.isEndOfWords
+//     }
+
+//     startsWith(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no matching"
+//             }
+//             node=node.children[char]
+//         }
+
+//         let list=[]
+
+//         this.collectWord(node,word,list)
+
+//         return list
+//     }
+
+//     collectWord(node,word,list){
+//         if(node.isEndOfWords){
+//             list.push(word)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWord(node.children[char],word+char,list)
+//         }
+//     }
+
+//     print(){
+//         let list=[]
+
+//         this.collectWord(this.root,"",list)
+//         console.log(list)
+//     }
+
+    
+
+//     delete(word) {
+//         let node = this.root;
+    
+//         // Traverse the word and check if it exists
+//         for (let char of word) {
+//             if (!node.children[char]) {
+//                 return "no matching"; // Word doesn't exist
+//             }
+//             node = node.children[char];
+//         }
+    
+//         // If the word is found, mark it as not the end of a word
+//         if (node.isEndOfWords) {
+//             node.isEndOfWords = false;
+//         }
+    
+//         // Now, try to delete the nodes from the end to the beginning
+//         for (let i = word.length - 1; i >= 0; i--) {
+//             let char = word[i];
+//             let parentNode = this.parentNode(word, i);
+    
+//             // If this node is not shared (i.e., it has no children and is not the end of another word)
+//             if (Object.entries(node.children).length === 0 && !node.isEndOfWords) {
+//                 delete parentNode.children[char]; // Delete it from parent
+//             }
+    
+//             // Ensure that `node` is valid before re-assigning
+//             if (parentNode.children[char]) {
+//                 node = parentNode.children[char]; // Update node to continue checking next level
+//             } else {
+//                 break; // If `parentNode.children[char]` is undefined, stop the loop
+//             }
+//         }
+//     }
+    
+//     parentNode(word, index) {
+//         let node = this.root;
+//         // Traverse up to the parent of the current character in the word
+//         for (let i = 0; i < index; i++) {
+//             node = node.children[word[i]];
+//         }
+//         return node;
+//     }
+    
+    
+// }
+
+//  const t=new trie()
+
+// t.insert("apple")
+// t.insert("app")
+// t.insert("banana")
+// t.insert("bat")
+// t.insert("batman")
+
+// console.log(t.search("apple"));  // true
+// console.log(t.search("app"));    // true
+// console.log(t.search("batman"));// true
+// console.log(t.search("ban")); 
+
+// console.log(t.startsWith("ba")); // true
+
+// console.log(t.autoComplete("ba")); // ["banana", "bat", "batman"]
+
+// t.print();  
+
+// t.delete("apple");
+
+// console.log("After Deletion:");
+// t.print(); 
+
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class suffixTrie{
+//     constructor(word){
+//         this.root=new Node()
+//         this.buildSuffix(word)
+//     }
+
+//     buildSuffix(word){
+//         for(let i=0;i<word.length;i++){
+//             this.insert(word.slice(i))
+//         }
+//     }
+
+//     insert(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+//         node.isEndOfWords=true
+//     }
+
+//     search(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+
+//         return true
+//     }
+// }
+
+
+// const suffix = new suffixTrie("banana");
+
+// console.log(suffix.search("ana"));  // true  (because "ana" is a suffix of "banana")
+// console.log(suffix.search("bab"));  // true  (because "ban" is a suffix of "banana")
+// console.log(suffix.search("apple"))
+
+//countwords,longestPrefix,countPrefix
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+
+//         node.isEndOfWords=true
+//     }
+
+//     countWords(){
+//         let queue=[]
+
+//         queue.push(this.root)
+//         let count=0
+//         while(queue.length){
+//             let curr=queue.shift()
+
+//             if(curr.isEndOfWords){
+//                 count++
+//             }
+
+//             for(let char in curr.children){
+//                 queue.push(curr.children[char])
+//             }
+//         }
+//         return count
+//     }
+
+//     longestPrefix(word){
+//         let node=this.root
+//         let longestPrefix=''
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no matches"
+//             }
+//             longestPrefix+=char
+//             node=node.children[char]
+//         }
+//         return longestPrefix
+//     }
+
+//     countPrefix(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 break
+//             }
+//             node=node.children[char]
+//         }
+
+//         return this.count(node)
+//     }
+
+//     count(node){
+//         let count=0
+
+//         if(node.isEndOfWords){
+//             count++
+//         }
+
+//         for(let char in node.children){
+//             count+=this.count(node.children[char])
+//         }
+//         return count
+//     }
+// }
+
+// const t = new trie();
+
+// // Insert words
+// t.insert("cat");
+// t.insert("car");
+// t.insert("bat");
+// t.insert("burger");
+// t.insert("batter");
+
+// console.log(t.countWords());  
+// console.log(t.longestPrefix("bu"));  
+// console.log(t.countPrefix("ba"));
+
+
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class trie{
+//     constructor(){
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+
+//         node.isEndOfWords=true
+//     }
+
+//     search(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return node.isEndOfWords
+//     }
+
+//     startsWith(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no matching"
+//             }
+
+//             node=node.children[char]
+//         }
+
+//         let list=[]
+
+//         this.collectWords(node,word,list)
+
+//         return list
+//     }
+
+//     collectWords(node,word,list){
+//         if(node.isEndOfWords){
+//             list.push(word)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWords(node.children[char],word+char,list)
+//         }
+//     }
+
+//     print(){
+//         let list=[]
+//         this.collectWords(this.root,"",list)
+//         console.log(list)
+//     }
+
+
+//     delete(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no matching"
+//             }
+//             node=node.children[char]
+//         }
+
+//         if(node.isEndOfWords){
+//             node.isEndOfWords=false
+//         }
+
+//         for(let i=word.length-1;i>=0;i--){
+//             let char=word[i]
+//             let parentNode=this.parentNode(word,i)
+
+//             if(Object.keys(node.children).length === 0 && !node.isEndOfWords){
+//                 delete parentNode.children[char]
+//             }
+
+//             if(parentNode.children[char]){
+//                 node=parentNode.children[char]
+//             }else{
+//                 break
+//             }
+//         }
+//     }
+
+//     parentNode(word,index){
+//         let node=this.root
+//         for(let i=0;i<index;i++){
+//             node=node.children[word[i]]
+//         }
+//         return node
+//     }
+// }
+
+//  const t=new trie()
+
+// t.insert("apple")
+// t.insert("app")
+// t.insert("banana")
+// t.insert("bat")
+// t.insert("batman")
+
+// console.log(t.search("apple"));  // true
+// console.log(t.search("app"));    // true
+// console.log(t.search("batman"));// true
+// console.log(t.search("ban")); 
+
+// console.log(t.startsWith("ba")); // true
+
+// console.log(t.autoComplete("ba")); // ["banana", "bat", "batman"]
+
+// t.print();  
+
+// t.delete("apple");
+
+// console.log("After Deletion:");
+// t.print(); 
+
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+// class suffixTrie{
+//     constructor(word){
+//         this.root=new Node()
+//         this.buildSuffix(word)
+//     }
+
+//     buildSuffix(word){
+//         for(let i=0;i<word.length;i++){
+//             this.insert(word.slice(i))
+//         }
+//     }
+
+//     insert(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+
+//         node.isEndOfWords=true
+//     }
+
+//     search(word){
+//         let node=this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node=node.children[char]
+//         }
+
+//         return node.isEndOfWords
+//     }
+// }
+
+
+
+// const suffix = new suffixTrie("banana");
+
+// console.log(suffix.search("ana"));  // true  (because "ana" is a suffix of "banana")
+// console.log(suffix.search("bab"));  // true  (because "ban" is a suffix of "banana")
+// console.log(suffix.search("apple"))
+
+
+// class Node{
+//     constructor(){
+//         this.children={}
+//         this.isEndOfWords=false
+//     }
+// }
+
+
+// class trie{
+//     constructor() {
+//         this.root=new Node()
+//     }
+
+//     insert(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char]=new Node()
+//             }
+//             node=node.children[char]
+//         }
+
+//         node.isEndOfWords=true
+//     }
+
+//     countWords(){
+//         let queue=[]
+//         queue.push(this.root)
+//         let count=0
+
+//         while(queue.length){
+//             let cur=queue.shift()
+
+//             if(cur.isEndOfWords){
+//                 count++
+//             }
+
+//             for(let char in cur.children){
+//                 queue.push(cur.children[char])
+//             }
+//         }
+//         return count
+//     }
+
+
+//     longestPrefix(word){
+//         let node=this.root
+//         let longestWord=""
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no matching"
+//             }
+//             node=node.children[char]
+//             longestWord+=char
+//         }
+//         return longestWord
+//     }
+
+//     countPrefix(word){
+//         let node=this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return "no match"
+//             }
+//             node=node.children[char]
+//         }
+
+//         return this.count(node)
+//     }
+
+//     count(node){
+//         let count=0
+//         if(node.isEndOfWords){
+//             count++
+//         }
+
+//         for(let char in node.children){
+//             count+=this.count(node.children[char])
+//         }
+//         return count
+//     }
+// }
+
+
+// const t = new trie();
+
+// // Insert words
+// t.insert("cat");
+// t.insert("car");
+// t.insert("bat");
+// t.insert("burger");
+// t.insert("batter");
+
+// console.log(t.countWords());  
+// console.log(t.longestPrefix("bu"));  
+// console.log(t.countPrefix("b"));
+
+
+// class Graph{
+//     constructor(){
+//         this.adjancyList={}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             this.adjancyList[vertex]=new Set()
+//         }
+//     }
+
+//     addEdge(vertex1,vertex2){
+//         if(!this.adjancyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
+
+//         if(!this.adjancyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
+
+//         this.adjancyList[vertex1].add(vertex2)
+//         this.adjancyList[vertex2].add(vertex1)
+//     }
+
+//     display(){
+//         for(let vertex in this.adjancyList){
+//             console.log(vertex+"=>"+[...this.adjancyList[vertex]])
+//         }
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         this.adjancyList[vertex1].delete(vertex2)
+//         this.adjancyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             return "there is no vertex with this name"
+//         }
+
+//         for(let ajdancyVertex of this.adjancyList[vertex]){
+//             this.removeEdge(ajdancyVertex,vertex)
+//         }
+
+//         delete this.adjancyList[vertex]
+//     }
+
+//     bfs(start){
+//         let visitedNode=new Set()
+//         let queue=[start]
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let vertex=queue.shift()
+//             console.log(vertex)
+
+//             this.adjancyList[vertex].forEach(values=>{
+//                 if(!visitedNode.has(values)){
+//                     visitedNode.add(values)
+//                     queue.push(values)
+//                 }
+//             })
+//         }
+//     }
+
+//     dfs(start,visitedNode=new Set()){
+//         console.log(start)
+//         visitedNode.add(start)
+
+//         this.adjancyList[start].forEach(neighbor=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+// }
+
+// const graph = new Graph();
+// graph.addVertex("A");
+// graph.addVertex("B");
+// graph.addVertex("C");
+// graph.addVertex("D")
+// graph.addVertex("E")
+// graph.addVertex("F")
+// graph.addEdge("A","B");
+// graph.addEdge("B","C");
+// graph.addEdge("C","F");
+// graph.addEdge("D","E")
+// graph.display()
+
+// console.log(graph.hasEdge("A","B"))
+
+// graph.removeEdge("E","D")
+// console.log("After removing edges")
+// graph.display()
+
+// graph.removeVertex("E")
+// graph.removeVertex("A")
+// console.log("After removing the removeVertex")
+// graph.display()
+
+// graph.bfs("A");
+//  graph.dfs("A");
+
+
+// class Graph{
+//     constructor(){
+//         this.adjancyList={}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             this.adjancyList[vertex]=new Set()
+//         }
+//     }
+
+//     addEdge(vertex1,vertex2){
+//         if(!this.adjancyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
+
+//         if(!this.adjancyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
+
+//         this.adjancyList[vertex1].add(vertex2)
+//         this.adjancyList[vertex2].add(vertex1)
+//     }
+
+//     display(){
+//         for(let vertex in this.adjancyList){
+//             console.log(vertex + "=>" + [...this.adjancyList[vertex]])
+//         }
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         this.adjancyList[vertex1].delete(vertex2)
+//         this.adjancyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         if(!this.adjancyList[vertex]){
+//             return "there is no vertex"
+//         }
+
+//         this.adjancyList[vertex].forEach(neighbor=>{
+//             this.removeEdge(neighbor,vertex)
+//         })
+
+//         delete this.adjancyList[vertex]
+//     }
+
+//     bfs(start){
+//         let visitedNode=new Set()
+//         let queue=[start]
+//         visitedNode.add(start)
+
+//         while(queue.length){
+
+//             let vertex=queue.shift()
+//             console.log(vertex)
+
+//             this.adjancyList[vertex].forEach(neighbor=>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })          
+//         }
+//     }
+
+//     dfs(start,visitedNode=new Set()){
+//         console.log(start)
+//         visitedNode.add(start)
+
+//         this.adjancyList[start].forEach(neighbor=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+
+//     bfsCycleDetection(start){
+//         let visitedNode=new Set()
+//         let queue=[{vertex:start,parent:null}]
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let {vertex,parent}=queue.shift()
+
+//             for(let neighbor of this.adjancyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push({vertex:neighbor,parent:vertex})
+//                 }
+//                 else if(neighbor != parent){
+//                     console.log("loop detected")
+//                     return
+//                 }
+//             }
+//         }
+//         console.log("loop is not detected")
+//     }
+
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+
+//         visitedNode.add(start)
+
+//         for(let neighbor of this.adjancyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }
+//             else if(neighbor != parent){
+//                 return true
+//             }
+//         }
+//         return false
+//     }
+// }
+
+// const graph = new Graph();
+// graph.addVertex("A");
+// graph.addVertex("B");
+// graph.addVertex("C");
+// graph.addVertex("D")
+// graph.addVertex("E")
+// graph.addVertex("F")
+// graph.addEdge("A","B");
+// graph.addEdge("B","C");
+// graph.addEdge("C","F");
+// graph.addEdge("D","E")
+// // graph.display()
+
+// // console.log(graph.hasEdge("A","B"))
+
+// // graph.removeEdge("E","D")
+// // console.log("After removing edges")
+// // graph.display()
+
+// // graph.removeVertex("E")
+// // graph.removeVertex("A")
+// // console.log("After removing the removeVertex")
+// // graph.display()
+
+// // graph.bfs("A");
+// // graph.dfs("A");
+
+// // graph.bfsCycleDetection("A")
+// console.log(graph.dfsCycleDetection("A"));
+
+
+class Graph{
+    constructor(){
+        this.adjancyList={}
+    }
+
+    addVertex(vertex){
+        if(!this.adjancyList[vertex]){
+            this.adjancyList[vertex]=new Set()
+        }
+    }
+
+    addEdge(vertex1,vertex2){
+        if(!this.adjancyList[vertex1]){
+            this.addVertex(vertex1)
+        }
+
+        if(!this.adjancyList[vertex2]){
+            this.addVertex(vertex2)
+        }
+
+        this.adjancyList[vertex1].add(vertex2)
+        this.adjancyList[vertex2].add(vertex1)
+    }
+
+    hasEdge(vertex1,vertex2){
+        return this.adjancyList[vertex1].has(vertex2) && this.adjancyList[vertex2].has(vertex1)
+    }
+
+    removeEdge(vertex1,vertex2){
+        if(!this.adjancyList[vertex1] && !this.adjancyList[vertex2]){
+            return "does not have vertex"
+        }
+
+        this.adjancyList[vertex1].delete(vertex2)
+        this.adjancyList[vertex2].delete(vertex1)
+    }
+
+    removeVertex(vertex){
+        if(!this.adjancyList[vertex]){
+            return "vertex is invalid"
+        }
+
+        this.adjancyList[vertex].forEach(neighbor=>{
+            this.removeEdge(neighbor,vertex)
+        })
+
+        delete this.adjancyList[vertex]
+    }
+
+    display(){
+        for(let vertex in this.adjancyList){
+            console.log(vertex+"=>"+[...this.adjancyList[vertex]])
+        }
+    }
+
+    bfs(start){
+        let visitedNode=new Set()
+        let queue=[start]
+        visitedNode.add(start)
+
+        while(queue.length){
+            let vertex=queue.shift()
+
+            console.log(vertex)
+
+            this.adjancyList[vertex].forEach(neighbor=>{
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push(neighbor)
+                }
+            })
+        }
+    }
+
+    dfs(start,visitedNode=new Set()){
+        console.log(start)
+        visitedNode.add(start)
+
+        this.adjancyList[start].forEach(neighbor=>{
+            if(!visitedNode.has(neighbor)){
+                this.dfs(neighbor,visitedNode)
+            }
+        })
+    }
+
+    bfsCycleDetection(start){
+        let visitedNode=new Set()
+        let queue=[{vertex:start, parent:null}]
+        visitedNode.add(start)
+
+        while(queue.length){
+            const {vertex,parent}=queue.shift()
+            for(let neighbor of this.adjancyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push({vertex:neighbor,parent:vertex})
+                }
+                else if(neighbor != parent){
+                    console.log("we found cycle")
+                    return
+                }
+            }
+
+        }
+        console.log("we dont have any kind of cycle")
+    }
+
+    dfsCycleDetection(start,visitedNode=new Set(),parent=[]){
+        visitedNode.add(start)
+
+        for(let neighbor of this.adjancyList[start]){
+            if(!visitedNode.has(neighbor)){
+                if(this.dfs(neighbor,visitedNode,start)){
+                    return true
+                }
+            }
+            else if(neighbor != parent){
+                return true
+            }
+        }
+        return false
+    }
+}
+
+const graph = new Graph();
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D")
+graph.addVertex("E")
+graph.addVertex("F")
+graph.addEdge("A","B");
+graph.addEdge("B","C");
+graph.addEdge("C","A");
+graph.addEdge("D","A")
+// graph.display()
+
+// console.log(graph.hasEdge("A","B"))
+
+// graph.removeEdge("E","D")
+// console.log("After removing edges")
+// graph.display()
+
+// graph.removeVertex("E")
+// graph.removeVertex("A")
+// console.log("After removing the removeVertex")
+// graph.display()
+
+// graph.bfs("A");
+// graph.dfs("A");
+
+graph.bfsCycleDetection("A")
+console.log(graph.dfsCycleDetection("A"));

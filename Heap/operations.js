@@ -23,11 +23,11 @@
 //     let left=2*index+1
 //     let right=2*index+2
 
-//     if(left < n || arr[left] > arr[largest]){
+//     if(left < n && arr[left] > arr[largest]){
 //         largest=left
 //     }
 
-//     if(right < n || arr[right] > arr[largest]){
+//     if(right < n && arr[right] > arr[largest]){
 //         largest=right
 //     }
 
@@ -49,3 +49,8 @@
 //         heapify(arr,i,0)
 //     }
 // }
+
+// const arr = [10, 20, 15, 30, 5];
+// console.log("Original Array:", arr);
+// heapSort(arr);
+// console.log("Sorted Array:", arr);

@@ -73,39 +73,50 @@ class trie{
         console.log(list)
     }
 
-    delete(word){
-        let node=this.root
-
-        for(let i=0;i<word.length;i++){
-            let char=word[i]
-                if(!node.children[char]){
-                    return
-                }
-                node=node.children[char]
-        }
-
-        if(node.isEndOfWord){
-            node.isEndOfWord=false
-        }
-
-        for(let i=word.length-1;i>=0;i--){
-            let char=word[i]
-            let parentNode=this.getParentNode(word,i)
-
-            if(Object.keys(node.children).length==0 && !node.isEndOfWord){
-                delete parentNode.children[char]
+    delete(word) {
+        let node = this.root;
+    
+        // Traverse the word and check if it exists
+        for (let char of word) {
+            if (!node.children[char]) {
+                return "no matching"; // Word doesn't exist
             }
-            node=parentNode.children[char]
+            node = node.children[char];
+        }
+    
+        // If the word is found, mark it as not the end of a word
+        if (node.isEndOfWords) {
+            node.isEndOfWords = false;
+        }
+    
+        // Now, try to delete the nodes from the end to the beginning
+        for (let i = word.length - 1; i >= 0; i--) {
+            let char = word[i];
+            let parentNode = this.parentNode(word, i);
+    
+            // If this node is not shared (i.e., it has no children and is not the end of another word)
+            if (Object.entries(node.children).length === 0 && !node.isEndOfWords) {
+                delete parentNode.children[char]; // Delete it from parent
+            }
+    
+            // Ensure that `node` is valid before re-assigning
+            if (parentNode.children[char]) {
+                node = parentNode.children[char]; // Update node to continue checking next level
+            } else {
+                break; // If `parentNode.children[char]` is undefined, stop the loop
+            }
         }
     }
-
-    getParentNode(word,index){
-        let node=this.root
-        for(let i=0;i<index;i++){
-            node=node.children[word[i]]
+    
+    parentNode(word, index) {
+        let node = this.root;
+        // Traverse up to the parent of the current character in the word
+        for (let i = 0; i < index; i++) {
+            node = node.children[word[i]];
         }
-        return node
+        return node;
     }
+    
 }
 
 const t=new trie()
