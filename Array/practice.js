@@ -80,7 +80,7 @@
 //     if(arr.length==0){
 //         return 0
 //     }
-//     return sumOfArray(arr.splice(0,arr.length-1))+arr[arr.length-1]
+//     return sumOfArray(arr.slice(0,arr.length-1))+arr[arr.length-1]
 // }
 
 // console.log(sumOfArray([3,5,3,29]))
@@ -145,6 +145,85 @@
 // }
 // console.log(minElements(arr))
 
+//largest using reduce
+// const arr=[1,2,66,3,65,21,45,3]
+
+// const result=arr.reduce((acc,cur)=>{
+    // if(([acc.first,acc.second,acc.third,acc.fourth]).includes(cur)){
+    //     return acc;
+    // }
+//     if(cur > acc.first){
+//         acc.fourth=acc.third
+//         acc.third=acc.second
+//         acc.second=acc.first
+//         acc.first=cur
+//     }
+//     else if(cur > acc.second){
+//         acc.fourth=acc.third
+//         acc.third=acc.second
+//         acc.second=cur
+//     }
+//     else if(cur > acc.third){
+//         acc.fourth=acc.third
+//         acc.third=cur
+//     }
+//     else if(cur > acc.fourth){
+//         acc.fourth=cur
+//     }
+//     return acc
+// },{
+//     first:-Infinity,
+//     second:-Infinity,
+//     third:-Infinity,
+//     fourth:-Infinity
+// })
+
+// console.log("1",result.first)
+// console.log("2",result.second)
+// console.log("3",result.third)
+// console.log("4",result.fourth)
+
+
+//smallest using reduce
+// const arr = [4,6,-19,4,1,0,-19,34,43]
+
+// const result=arr.reduce((acc,cur)=>{
+
+//     if(([acc.first,acc.second,acc.third,acc.fourth]).includes(cur)){
+//         return acc;
+//     }
+//     if(cur < acc.first){
+//         acc.fourth=acc.third
+//         acc.third=acc.second
+//         acc.second=acc.first
+//         acc.first=cur
+//     }
+//     else if(cur < acc.second){
+//         acc.fourth=acc.third
+//         acc.third=acc.second
+//         acc.second=cur
+//     }
+//     else if(cur < acc.third){
+//         acc.fourth=acc.third
+//         acc.third=cur
+//     }
+//     else if(cur < acc.fourth){
+//         acc.fourth=cur
+//     }
+
+//     return acc
+// },{
+//     first:Infinity,
+//     second:Infinity,
+//     third:Infinity,
+//     fourth:Infinity
+// })
+
+// console.log('1',result.first)
+// console.log('2',result.second)
+// console.log('3',result.third)
+// console.log('4',result.fourth)
+
 //reverse an array
 
 // const arr=[3,4,5,6,33,10,6]
@@ -177,6 +256,19 @@
 //     return sum
 // }
 // console.log(sumOfDigits(num))
+
+//another approach
+
+// function sumOfDigits(no){
+//     let str=no.toString()
+//     let sum=0
+//     for(let i=0;i<str.length;i++){
+//         sum+=Number(str[i])
+//     }
+//     return sum
+//     }
+//     let no=5050
+//     console.log(sumOfDigits(no))
 
 //recursively reverse the array
 
@@ -214,16 +306,14 @@
 
 //maximum subarray sum
 
-function subArraySum(arr){
-    let cs=0
-    let max=0
-    for(let i=0;i<arr.length;i++){
-        cs=cs+arr[i]
-        if(cs < 0){
-            cs=0
-        }
-        max=Math.max(cs,max)
+function subArray(arr){
+    let cs=arr[0]
+    let max=arr[0]
+
+    for(let i=1;i<arr.length;i++){
+        cs=Math.max(arr[i],cs+arr[i])
+        max=Math.max(max,cs)
     }
     return max
 }
-console.log(subArraySum([2, 3, 4, 5, 1, 22, 0, 4]))
+console.log(subArray([2, 3, 4, 5, 1, 22, 0, 4]))
