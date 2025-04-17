@@ -7,7 +7,6 @@ function fibRecursion(n){
     return fibRecursion(n-1)+fibRecursion(n-2)
 }
 
-
 console.log(fibRecursion(5))
 
 //fact
@@ -44,3 +43,14 @@ function search(arr,target,leftIndex,rightIndex){
 console.log(rbs([-5,2,4,6,10],10))
 console.log(rbs([-5,2,4,6,10],6))
 console.log(rbs([-5,2,4,6,10],20))
+
+//sum of digits
+
+function sumOfDigit(n){
+    if(n < 2){
+        return n
+    }
+
+    return (n%10)+sumOfDigit(Math.floor(n/10))
+}
+console.log(sumOfDigit(1111))

@@ -77,3 +77,5 @@ function binarySearch(arr,target,leftIndex,rightIndex){
 console.log(rbs([-5,2,4,6,10],10))
 console.log(rbs([-5,2,4,6,10],6))
 console.log(rbs([-5,2,4,6,10],20))
+
+

@@ -17,6 +17,8 @@
 
 //store unique letters from a string
 
+//index == unique letter
+
 // let str="malayalam"
 // let arr=[]
 // for(let i=0;i<str.length;i++){
@@ -38,6 +40,9 @@
 // }
 
 //combine two strings like first letter from first string and first letter from second string.
+
+//find max length iterate make condition there first and second < their length it will work
+
 // let str1 = "pqr";
 // let str2 = "stuv";
 
@@ -84,7 +89,9 @@
 
 // console.log(reverse("hello"))
 
-//check str1 is a rotation of str
+//check str1 is a rotation of str. 
+//concate make str abcdabcd here bcda exists so str1 is rotation of str
+
 // let str = "abcd"
 // let str1 = "bcda"
 
@@ -127,3 +134,44 @@
 //     return reverseRecursion(remaining)+first
 // }
 // console.log(reverseRecursion("basha"))
+
+//capitalize the first letter of all word
+
+// let str='hi hello how are you'
+
+// let firstCap=str.split(' ').map((word)=>{
+//     return word[0].toUpperCase()+word.slice(1)
+// }).join(' ')
+
+// console.log(firstCap)
+
+//reverse like this output:ih olleh woh era uoy
+
+// let str='hi hello how are you'
+
+// console.log(str.split('').reverse().join('').split(' ').reverse().join(' '))
+
+//another approach for this
+
+// let str='hi hello how are you'
+
+// let reverseStr=''
+// let word=''
+
+// for(let i=0;i<=str.length;i++){
+//     if(str[i]=== ' ' || i===str.length){
+//         for(let j=word.length-1;j>=0;j--){
+//             reverseStr+=word[j]
+//         }
+
+//         if(i !== str.length){
+//             reverseStr+=' '
+//         }
+
+//         word=''
+//     }else{
+//         word+=str[i]
+//     }
+// }
+
+// console.log(reverseStr)

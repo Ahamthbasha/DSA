@@ -306,14 +306,31 @@
 
 //maximum subarray sum
 
-function subArray(arr){
-    let cs=arr[0]
-    let max=arr[0]
+// function subArray(arr){
+//     let cs=arr[0]
+//     let max=arr[0]
 
-    for(let i=1;i<arr.length;i++){
-        cs=Math.max(arr[i],cs+arr[i])
-        max=Math.max(max,cs)
-    }
-    return max
-}
-console.log(subArray([2, 3, 4, 5, 1, 22, 0, 4]))
+//     for(let i=1;i<arr.length;i++){
+//         cs=Math.max(arr[i],cs+arr[i])
+//         max=Math.max(max,cs)
+//     }
+//     return max
+// }
+// console.log(subArray([2, 3, 4, 5, 1, 22, 0, 4]))
+
+// let arr=[[1,2,-3],[-11,2,3], [8,-10,2]]
+// let min=Infinity
+// let index=0
+// for(let i=0;i<arr.length;i++){
+//     for(let j=0;j<arr[i].length;j++){
+//         if(arr[i][j] < min){
+//             min=arr[i][j]
+//             index=i
+//         }
+//     }
+// }
+
+// console.log(min)
+// console.log(index)
+// arr.splice(index,1)
+// console.log(arr)

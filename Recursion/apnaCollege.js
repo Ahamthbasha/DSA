@@ -54,6 +54,7 @@
 
 //5.check given array is sorted in ascending order or not
 //time complexity and space complexity is O(n)
+
 // function sorted(arr,n){
 //     if(n <= 1){
 //         return true
