@@ -259,88 +259,224 @@
 
 //tail implementation
 
-class Node{
-    constructor(value){
-        this.value=value
-        this.next=null
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
+
+// class linkedlist{
+//     constructor(){
+//         this.head=null
+//         this.tail=null
+//         this.size=0
+//     }
+
+//     isEmpty(){
+//         return this.size === 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     prepend(value){
+//         const node=new Node(value)
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             node.next=this.head
+//             this.head=node
+//         }
+//         this.size++
+//     }
+
+//     append(value){
+//         const node=new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.tail=node
+//         }else{
+//             this.tail.next=node
+//             this.tail=node
+//             node.next=null
+//         }
+//         this.size++
+//     }
+
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             console.log("list is empty")
+//             return
+//         }
+
+//         if(this.size==1){
+//             this.head=null
+//             this.tail=null
+//         }else{
+//             this.head=this.head.next
+//         }
+//         this.size--
+//     }
+
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             console.log("list is empty")
+//             return
+//         }
+//         if(this.size==1){
+//             this.head=null
+//             this.tail=null
+//         }else{
+//             let temp=this.head
+
+//             while(temp.next.next != null){
+//                 temp=temp.next
+//             }
+
+//             temp.next=null
+//             this.tail=temp
+//         }
+//         this.size--
+//     }
+
+//     reverse(){
+//         let prev=null
+//         let cur=this.head
+//         let next
+
+//         while(cur){
+//             next=cur.next
+//             cur.next=prev
+//             prev=cur
+//             cur=next
+//         }
+
+//         this.head=this.tail
+//         this.tail=prev
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             console.log("list is empty")
+//         }else{
+//             let temp=this.head
+//             let list=''
+
+//             while(temp != null){
+//                 list+=temp.value+'->'
+//                 temp=temp.next
+//             }
+//             list+='null'
+//             console.log(list)
+//         }
+//     }
+// }
+// const list=new linkedlist()
+
+// list.prepend(10)
+// list.append(20)
+// list.append(30)
+// list.append(40)
+// list.append(50)
+// list.append(60)
+// list.append(70)
+
+// list.print()
+
+// list.removeFromStart()
+// list.print()
+
+// list.removeFromEnd()
+// list.print()
+
+// list.reverse()
+// list.print()
+
+//doubly linked list
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+        this.prev = null;
     }
 }
 
-class linkedlist{
-    constructor(){
-        this.head=null
-        this.tail=null
-        this.size=0
+class DoublyLinkedList {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
     }
 
-    isEmpty(){
-        return this.size === 0
+    getSize() {
+        return this.size;
     }
 
-    getSize(){
-        return this.size
+    isEmpty() {
+        return this.size === 0;
     }
 
-    prepend(value){
-        const node=new Node(value)
-        if(this.isEmpty()){
-            this.head=node
-            this.tail=node
-        }else{
-            node.next=this.head
-            this.head=node
+    prepend(value) {
+        const node = new Node(value);
+        if (this.isEmpty()) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            node.next = this.head;
+            this.head.prev = node; // ✅ Fix: link current head's prev to new node
+            this.head = node;
         }
-        this.size++
+        this.size++;
     }
 
-    append(value){
-        const node=new Node(value)
-
-        if(this.isEmpty()){
-            this.head=node
-            this.tail=node
-        }else{
-            this.tail.next=node
-            this.tail=node
-            node.next=null
+    append(value) {
+        const node = new Node(value);
+        if (this.isEmpty()) {
+            this.head = node;
+            this.tail = node;
+        } else {
+            this.tail.next = node;
+            node.prev = this.tail; // ✅ Fix: link new node's prev to current tail
+            this.tail = node;
         }
-        this.size++
+        this.size++;
     }
 
-    removeFromStart(){
-        if(this.isEmpty()){
-            console.log("list is empty")
-            return
+    removeFromStart() {
+        if (this.isEmpty()) {
+            console.log("List is empty");
+            return;
         }
 
-        if(this.size==1){
-            this.head=null
-            this.tail=null
-        }else{
-            this.head=this.head.next
+        if (this.size === 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = this.head.next;
+            this.head.prev = null; // ✅ Fix: new head's prev should be null
         }
-        this.size--
+        this.size--;
     }
 
-    removeFromEnd(){
-        if(this.isEmpty()){
-            console.log("list is empty")
-            return
+    removeFromEnd() {
+        if (this.isEmpty()) {
+            console.log("List is empty");
+            return;
         }
-        if(this.size==1){
-            this.head=null
-            this.tail=null
-        }else{
-            let temp=this.head
 
-            while(temp.next.next != null){
-                temp=temp.next
-            }
-
-            temp.next=null
-            this.tail=temp
+        if (this.size === 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail = this.tail.prev; // ✅ Fix: use prev pointer instead of loop
+            this.tail.next = null;
         }
-        this.size--
+        this.size--;
     }
 
     reverse(){
@@ -351,47 +487,45 @@ class linkedlist{
         while(cur){
             next=cur.next
             cur.next=prev
+            cur.prev=next
             prev=cur
             cur=next
         }
 
+        let temp=this.head
         this.head=this.tail
-        this.tail=prev
+        this.tail=temp
     }
 
-    print(){
-        if(this.isEmpty()){
-            console.log("list is empty")
-        }else{
-            let temp=this.head
-            let list=''
-
-            while(temp != null){
-                list+=temp.value+'->'
-                temp=temp.next
-            }
-            list+='null'
-            console.log(list)
+    print() {
+        if (this.isEmpty()) {
+            console.log("List is empty");
+            return;
         }
+
+        let temp = this.head;
+        let list = '';
+        while (temp !== null) {
+            list += temp.value + '<->';
+            temp = temp.next;
+        }
+        list += 'null';
+        console.log(list);
     }
 }
-const list=new linkedlist()
 
-list.prepend(10)
-list.append(20)
-list.append(30)
-list.append(40)
-list.append(50)
-list.append(60)
-list.append(70)
 
-list.print()
+const list = new DoublyLinkedList();
 
-list.removeFromStart()
-list.print()
+list.prepend(10);
+list.append(20);
+list.append(30);
+list.append(40);
+list.append(50);
+list.print(); // 10<->20<->30<->40<->50<->null
 
-list.removeFromEnd()
-list.print()
+list.removeFromStart();
+list.print(); // 20<->30<->40<->50<->null
 
-// list.reverse()
-// list.print()
+list.removeFromEnd();
+list.print(); // 20<->30<->40<->null
