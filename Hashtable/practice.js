@@ -1,3 +1,5 @@
+//if keys here are same it will overwrite
+
 // class Hashtable{
 //     constructor(size){
 //         this.table=new Array(size)
@@ -50,7 +52,7 @@
 // table.display()
 
 
-//handling the table collisions
+//handling the table collisions with open addressing
 
 // class hashtable{
 //     constructor(size){

@@ -564,6 +564,26 @@ class Binarysearchtree{
         let distance2=this.findDistance(LCA,n2)
         return distance1+distance2
     }
+
+    OnlyOneChild(root){
+        let result=[]
+        let count=0
+
+        function inOrder(root){
+            if(root){
+                if((root.left && !root.right) || (root.right && !root.left)){
+                    count++
+                    result.push(root.value)
+                }
+                inOrder(root.left)
+                inOrder(root.right)
+            }
+        }
+
+        inOrder(root)
+
+        return {result,count}
+    }
 }
 
 let b = new Binarysearchtree()
@@ -575,7 +595,7 @@ b.insert(3);
 b.insert(7);
 b.insert(12);
 b.insert(18);
-
+b.insert(17);
 
 // b1.insert(10);
 // b1.insert(5);
@@ -692,3 +712,5 @@ b.insert(18);
 // console.log("find path between 7 to 18",b.findPathBetweenTwoNodes(7,18))
 
 // console.log("find distance between 7 to 18",b.findDistancBetweenTwoNodes(7,18))
+
+console.log(b.OnlyOneChild(b.root))

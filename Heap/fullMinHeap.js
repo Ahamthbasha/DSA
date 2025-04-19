@@ -1,5 +1,3 @@
-
-
 class Heap{
     constructor(){
         this.heap = [];
@@ -133,4 +131,4 @@ heap.addNewElement(15);
 heap.print()
 console.log(heap.peek())
 console.log(heap.findKthLargest([1,9,10,4,5],3));
-console.log(heap.heapSort([1,9,10,4,5],3));
+console.log(heap.heapSort([1,9,10,4,5]));

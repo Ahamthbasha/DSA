@@ -1,23 +1,24 @@
-// function topKFrequentElement(nums,k){
-//     let freqMap=new Map()
+function topKFrequentElement(nums,k){
+    let freqMap=new Map()
 
-//     for(let num of nums){
-//         freqMap.set(num,(freqMap.get(num)||0)+1)
-//     }
+    for(let num of nums){
+        freqMap.set(num,(freqMap.get(num)||0)+1)
+    }
 
-//     let result=[]
-//     for(let [num,freq] of freqMap.entries()){
-//         if(freq==k){
-//             result.push(num)
-//         }
-//     }
-//     return result
-// }
+    let result=[]
+    for(let [num,freq] of freqMap.entries()){
+        if(freq==k){
+            result.push(num)
+        }
+    }
+    return result
+}
 
-// const nums = [1, 1, 1, 2, 2, 3];
-// const k = 1;
-// console.log(topKFrequentElement(nums, k)); 
+const nums = [1, 1, 1, 2, 2, 3];
+const k = 1;
+console.log(topKFrequentElement(nums, k)); 
 
+//max heap property
 // function heapify(arr,n,i){
 //     let largest=i
 //     let left=2*index+1
